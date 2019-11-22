@@ -6,14 +6,16 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 11:57:29 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/10/25 17:49:27 by nclabaux         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:49:44 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
 # include <stdlib.h>
 # include <unistd.h>
+# include "ft_convert_base/ft_convert_base.h"
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
