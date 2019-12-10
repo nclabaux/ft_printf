@@ -1,69 +1,114 @@
-#include "ft_printf.h"
-#include "./libft/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/04 14:49:38 by nclabaux          #+#    #+#             */
+/*   Updated: 2019/12/10 16:10:45 by nclabaux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//
-#include <stdio.h>
+#include "ft_printf.h"
+
+int	result;
 
 int	ft_printf(const char *str, ...)
 {
-	va_list	ap;	
+	va_list	ap;
 	int		i;
 
+	result = 0;
+	//secure va_start ?
 	va_start(ap, str);
 	i = 0;
-	while (str[i])
+	while (str[i]) 
 	{
-		while (str[i] != '%')
-			ft_putchar_fd(str[i++], 1);
-		if (str[i + 1] == 'c')
+		while (str[i] && str[i] != '%')
 		{
-			ft_putchar_fd(va_arg(ap, int), 1);
+			ft_putchar_fd(str[i], 1);
 			i++;
+			result++;
 		}
-		else if (str[i + 1] == 's')
+		if (str[i] == '%')
 		{
-			ft_putstr_fd(va_arg(ap, char *), 1);
-			i++;
+			i = flag_reader(&ap, str, i + 1);
 		}
-		else if (str[i + 1] == 'd' || str[i + 1] == 'i')
+	}
+	va_end(ap);
+	return (result);
+}
+
+int	flag_reader(va_list *aap, const char *str, int i)
+{
+	t_flag	flags;
+
+	flag_init(&flags);
+	while (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			flags.position = -1;
+		i++;
+	}
+	if (ft_isdigit(str[i]))
+	{
+		flags.padding = ft_atoi(str + i);
+		i += digit_number(flags.padding);
+	}
+	else if (str[i] == '*')
+	{
+		flags.padding = va_arg(*aap, int);
+		if (flags.padding < 0)
 		{
-			ft_putnbr_fd(va_arg(ap, int), 1);
-			i++;
-		}
-		else if (str[i + 1] == 'u')
-		{
-			ft_putnbr_fd(va_arg(ap, unsigned int), 1);
-			i++;
-		}
-		else if (str[i + 1] == 'p')
-		{
-			ft_putnbr_fd((int)va_arg(ap, void *), 1);
-			i++;
+			flags.padding *= -1;
+			flags.position = -1;
 		}
 		i++;
 	}
-	va_end(ap);
-	return (0);
+	if (str[i] == '.')
+	{
+		i++;
+		flags.modified = 1;
+		if (ft_isdigit(str[i]))
+		{
+		flags.precision = ft_atoi(str + i);
+		i += digit_number(flags.precision);
+		}
+		else if (str[i] == '*')
+		{
+			flags.precision = va_arg(*aap, int);
+			i++;
+		}
+	}
+	i = arg_reader(aap, str, i, &flags);
+	return (i);
 }
 
-int	main()
-{
-	char			c;
-	char			*s;
-	int				i;
-	int				j;
-	unsigned int	u;
-	unsigned int	v;
-	int				*p;
 
-	c = 'a';
-	s = "test";
-	i = 42;
-	j = -21;
-	u = 21;
-	v = -42;
-	p = &i;
-	ft_printf("char : %c\nstring : %s\nint : %d\nint : %i\nunsigned int : %u\nunsigned int : %u\npointer : %p\n", c, s, i, j, u, v, p);
-	printf("\nchar : %c\nstring : %s\nint : %d\nint : %i\nunsigned int : %u\nunsigned int : %u\npointer : %p\n", c, s, i, j, u, v, p);
-	return (0);
+int	arg_reader(va_list *aap, const char *str, int i, t_flag *aflags)
+{
+	if (str[i] == 'c')
+		i = character(aap, i, aflags);
+	else if (str[i] == 's')
+		i = string(aap, i, aflags);
+	else if (str[i] == 'd' || str[i] == 'i')
+		i = integer(aap, i, aflags);
+	else if (str[i] == 'u')
+		i = unsigned_integer(aap, i, aflags);
+	else if (str[i] == 'p')
+		i = pointeur(aap, i, aflags);
+	else if (str[i] == 'x')
+		i = min_hexa(aap, i, aflags);
+	else if (str[i] == 'X')
+		i = max_hexa(aap, i, aflags);
+	return (i);
+}
+
+void	flag_init(t_flag *aflags)
+{
+	(*aflags).padding = 0;
+	(*aflags).precision = 0;
+	(*aflags).position = 1;
+	(*aflags).modified = 0;
 }
