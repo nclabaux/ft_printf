@@ -673,7 +673,11 @@ int		main()
 	printf("\t\tTests sur les pointeurs :\n\n");
 	delay();
 
-	homemade = ft_printf("")
+	homemade = ft_printf("\n%p*\n", &i);
+	original = printf("%p*\n\n", &i);
+	if(homemade - original)
+			printf("\n/!\\\treturn value is false\t/!\\");
+	delay();
 //	ft_printf("%d %d %d %d %d\n", -2147483648, -1, 0, 1, 2147483647);
 //	printf("%d %d %d %d %d\n", -2147483648, -1, 0, 1, 2147483647);
 //	ft_printf("%i %i %i %i %i\n", -2147483648, -1, 0, 1, 2147483647);
