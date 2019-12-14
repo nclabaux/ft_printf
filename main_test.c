@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 14:58:44 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/10 16:45:55 by nclabaux         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:33:45 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main()
 	int	homemade;
 
 	i = '!';
-	ft_printf("\t\tTests sur les caracteres :\n\n")
+	ft_printf("\t\tTests sur les caracteres :\n\n");
 	while (i < 127)
 	{
 		homemade = ft_printf("%c\t", i);
@@ -810,12 +810,6 @@ int		main()
 	delay();
 	homemade = ft_printf("0\n%p*\n", 0);
 	original = printf("%p*\n\n", 0);
-	delay();
-	if(homemade - original)
-			printf("\n/!\\\treturn value is false\t/!\\\nexpected: %d, obtained: %d\n\n", original, homemade);
-	delay();
-	homemade = ft_printf("-\n%p*\n", -&i);
-	original = printf("%p*\n\n", -&i);
 	delay();
 	if(homemade - original)
 			printf("\n/!\\\treturn value is false\t/!\\\nexpected: %d, obtained: %d\n\n", original, homemade);
