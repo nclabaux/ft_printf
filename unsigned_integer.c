@@ -6,13 +6,13 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 15:47:44 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/10 16:14:15 by nclabaux         ###   ########.fr       */
+/*   Updated: 2019/12/13 14:34:25 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	unsigned_integer(va_list *aap, int i, t_flag *aflags)
+int	unsigned_integer(va_list *aap, int i, t_flag *aflags, int *result)
 {
 	int				j;
 	unsigned long	x;
@@ -26,6 +26,7 @@ int	unsigned_integer(va_list *aap, int i, t_flag *aflags)
 			ft_putchar_fd(' ', 1);
 			i++;
 			j++;
+			(*result)++;
 		}
 	}
 	while (j < (*aflags).position - digit_number(x) - 1)
@@ -33,6 +34,7 @@ int	unsigned_integer(va_list *aap, int i, t_flag *aflags)
 		ft_putchar_fd('0', 1);
 		i++;
 		j++;
+		(*result)++;
 	}
 	ft_putstr_fd(ft_nbr_base(x, "0123456789"), 1);
 	if ((*aflags).position == -1)
@@ -42,6 +44,7 @@ int	unsigned_integer(va_list *aap, int i, t_flag *aflags)
 			ft_putchar_fd(' ', 1);
 			i++;
 			j++;
+			(*result)++;
 		}
 	}
 	return (i + 1);

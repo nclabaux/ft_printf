@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:50:28 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/10 14:36:44 by nclabaux         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:00:35 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,18 @@ void	ft_putstr_nb_fd(char *str, int size, int fd)
 		ft_putchar_fd(str[i], fd);
 		i++;
 	}
+}
+
+int		ft_min(int x, int y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}
+
+int		ft_max(int x, int y)
+{
+	if (x > y)
+		return (x);
+	return (y);
 }

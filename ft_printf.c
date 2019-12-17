@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:49:38 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/10 16:10:45 by nclabaux         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:31:58 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,19 @@ int	flag_reader(va_list *aap, const char *str, int i)
 int	arg_reader(va_list *aap, const char *str, int i, t_flag *aflags)
 {
 	if (str[i] == 'c')
-		i = character(aap, i, aflags);
+		i = character(aap, i, aflags, &result);
 	else if (str[i] == 's')
-		i = string(aap, i, aflags);
+		i = string(aap, i, aflags, &result);
 	else if (str[i] == 'd' || str[i] == 'i')
-		i = integer(aap, i, aflags);
+		i = integer(aap, i, aflags, &result);
 	else if (str[i] == 'u')
-		i = unsigned_integer(aap, i, aflags);
+		i = unsigned_integer(aap, i, aflags, &result);
 	else if (str[i] == 'p')
-		i = pointeur(aap, i, aflags);
+		i = pointeur(aap, i, aflags, &result);
 	else if (str[i] == 'x')
-		i = min_hexa(aap, i, aflags);
+		i = min_hexa(aap, i, aflags, &result);
 	else if (str[i] == 'X')
-		i = max_hexa(aap, i, aflags);
+		i = max_hexa(aap, i, aflags, &result);
 	return (i);
 }
 
