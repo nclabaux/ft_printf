@@ -6,18 +6,24 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 14:58:44 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/17 16:31:42 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/07 11:00:50 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
-#define DELAY 100000000
+#define DELAY 200000000
+
+void	test_char();
+void	test_str();
+void	test_pnt();
+void	test_int();
+void	test_uns();
+void	test_hex();
 
 void	delay()
 {
-	int	i;
-
+	int i;
 	for (i = 0; i < DELAY; i++)
 	{}
 }
@@ -27,2261 +33,1425 @@ int		main()
 	int i;
 	int	original;
 	int	homemade;
+/*
+	homemade = ft_printf("return value test %c %s %d %i %u %x %X %p\n\n", 'a', "ok", 0, 1, 2789, 24, 100, &i);
+	original = printf("return value test %c %s %d %i %u %x %X %p\n\n", 'a', "ok", 0, 1, 2789, 24, 100, &i);
+	if (homemade - original)
+		ft_printf("error\nwith\nreturn\nvalue\n");
+	delay();
+	delay();
+*/
+//	test_char();
+//	test_str();
+//	test_pnt();
+//	test_int();
+//	test_uns();
+//	test_hex();
+}
 
+void	test_char()
+{
+	int	i;
+
+	ft_printf("Tests sur les caracteres :\n\n");
 	i = '!';
-/*	ft_printf("\t\tTests sur les caracteres :\n\n");
 	while (i < 127)
 	{
-		homemade = ft_printf("%c", i);
-		original = printf("%c\n", i);
-		delay();
-		i++;
+		ft_printf("%c", i);
+		printf("%c\n", i);
+		i += 16;
 	}
 	delay();
-	homemade = ft_printf("0\n%c\n", 0);
-	original = printf("%c0\n\n", 0);
+	ft_printf("0\n%c\n", 0);
+	printf("%c0\n\n", 0);
 	delay();
-	
-			
+	ft_printf("remplissage 0\n%0c0\n", 42);
+	printf("%0c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage 0\n%0c0\n", 42);
-	original = printf("%0c0\n\n", 42);
+	ft_printf("remplissage 1\n%1c0\n", 42);
+	printf("%1c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("remplissage >\n%2c0\n", 42);
+	printf("%2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage 1\n%1c0\n", 42);
-	original = printf("%1c0\n\n", 42);
+	ft_printf("remplissage -0\n%-0c0\n", 42);
+	printf("%-0c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("remplissage -1\n%-1c0\n", 42);
+	printf("%-1c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage >\n%2c0\n", 42);
-	original = printf("%2c0\n\n", 42);
+	ft_printf("remplissage ->\n%-2c0\n", 42);
+	printf("%-2c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("remplissage *0\n%*c0\n", 0, 42);
+	printf("%*c0\n\n", 0, 42);
 	delay();
-	homemade = ft_printf("remplissage -0\n%-0c0\n", 42);
-	original = printf("%-0c0\n\n", 42);
+	ft_printf("remplissage *1\n%*c0\n", 1, 42);
+	printf("%*c0\n\n", 1, 42);
 	delay();
-	
-			
+	ft_printf("remplissage *>\n%*c0\n", 2, 42);
+	printf("%*c0\n\n", 2, 42);
 	delay();
-	homemade = ft_printf("remplissage -1\n%-1c0\n", 42);
-	original = printf("%-1c0\n\n", 42);
+	ft_printf("remplissage *-0\n%*c0\n", -0, 42);
+	printf("%*c0\n\n", -0, 42);
 	delay();
-	
-			
+	ft_printf("remplissage *-1\n%*c0\n", -1, 42);
+	printf("%*c0\n\n", -1, 42);
 	delay();
-	homemade = ft_printf("remplissage ->\n%-2c0\n", 42);
-	original = printf("%-2c0\n\n", 42);
+	ft_printf("remplissage *->\n%*c0\n", -2, 42);
+	printf("%*c0\n\n", -2, 42);
 	delay();
-	
-			
+	ft_printf("remplissage -*0\n%-*c0\n", 0, 42);
+	printf("%-*c0\n\n", 0, 42);
 	delay();
-	homemade = ft_printf("remplissage *0\n%*c0\n", 0, 42);
-	original = printf("%*c0\n\n", 0, 42);
+	ft_printf("remplissage -*1\n%-*c0\n", 1, 42);
+	printf("%-*c0\n\n", 1, 42);
 	delay();
-	
-			
+	ft_printf("remplissage -*>\n%-*c0\n", 2, 42);
+	printf("%-*c0\n\n", 2, 42);
 	delay();
-	homemade = ft_printf("remplissage *1\n%*c0\n", 1, 42);
-	original = printf("%*c0\n\n", 1, 42);
+	ft_printf("remplissage -*-0\n%-*c0\n", -0, 42);
+	printf("%-*c0\n\n", -0, 42);
 	delay();
-	
-			
+	ft_printf("remplissage -*-1\n%-*c0\n", -1, 42);
+	printf("%-*c0\n\n", -1, 42);
 	delay();
-	homemade = ft_printf("remplissage *>\n%*c0\n", 2, 42);
-	original = printf("%*c0\n\n", 2, 42);
+	ft_printf("remplissage -*->\n%-*c0\n", -2, 42);
+	printf("%-*c0\n\n", -2, 42);
 	delay();
-	
-			
+	ft_printf("precision 0\n%.0c0\n", 42);
+	printf("%.0c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage *-0\n%*c0\n", -0, 42);
-	original = printf("%*c0\n\n", -0, 42);
+	ft_printf("precision =\n%.1c0\n", 42);
+	printf("%.1c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("precision >\n%.2c0\n", 42);
+	printf("%.2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage *-1\n%*c0\n", -1, 42);
-	original = printf("%*c0\n\n", -1, 42);
+	ft_printf("precision *0\n%.*c0\n", 0, 42);
+	printf("%.*c0\n\n", 0, 42);
 	delay();
-	
-			
+	ft_printf("precision *=\n%.*c0\n", 1, 42);
+	printf("%.*c0\n\n", 1, 42);
 	delay();
-	homemade = ft_printf("remplissage *->\n%*c0\n", -2, 42);
-	original = printf("%*c0\n\n", -2, 42);
+	ft_printf("precision *>\n%.*c0\n", 2, 42);
+	printf("%.*c0\n\n", 2, 42);
 	delay();
-	
-			
+	ft_printf("P+R 0.0\n%0.0c0\n", 42);
+	printf("%0.0c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*0\n%-*c0\n", 0, 42);
-	original = printf("%-*c0\n\n", 0, 42);
+	ft_printf("P+R 0.=\n%0.1c0\n", 42);
+	printf("%0.1c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R =.0\n%1.0c0\n", 42);
+	printf("%1.0c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*1\n%-*c0\n", 1, 42);
-	original = printf("%-*c0\n\n", 1, 42);
+	ft_printf("P+R =.=\n%1.1c0\n", 42);
+	printf("%1.1c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R 0.>\n%0.2c0\n", 42);
+	printf("%0.2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*>\n%-*c0\n", 2, 42);
-	original = printf("%-*c0\n\n", 2, 42);
+	ft_printf("P+R >.0\n%2.0c0\n", 42);
+	printf("%2.0c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R =<<\n%1.2c0\n", 42);
+	printf("%1.2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*c0\n", -0, 42);
-	original = printf("%-*c0\n\n", -0, 42);
+	ft_printf("P+R >>=\n%2.1c0\n", 42);
+	printf("%2.1c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R <=<\n%2.2c0\n", 42);
+	printf("%2.2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*-1\n%-*c0\n", -1, 42);
-	original = printf("%-*c0\n\n", -1, 42);
+	ft_printf("P+R <=<\n%2.3c0\n", 42);
+	printf("%2.3c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R <=<\n%3.2c0\n", 42);
+	printf("%3.2c0\n\n", 42);
 	delay();
-	homemade = ft_printf("remplissage -*->\n%-*c0\n", -2, 42);
-	original = printf("%-*c0\n\n", -2, 42);
+	ft_printf("P+R -0.0\n%-0.0c0\n", 42);
+	printf("%-0.0c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R -0.=\n%-0.1c0\n", 42);
+	printf("%-0.1c0\n\n", 42);
 	delay();
-	homemade = ft_printf("precision 0\n%.0c0\n", 42);
-	original = printf("%.0c0\n\n", 42);
+	ft_printf("P+R =.0\n%-1.0c0\n", 42);
+	printf("%-1.0c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R =.=\n%-1.1c0\n", 42);
+	printf("%-1.1c0\n\n", 42);
 	delay();
-	homemade = ft_printf("precision <\n%.1c0\n", 42);
-	original = printf("%.1c0\n\n", 42);
+	ft_printf("P+R -0.>\n%-0.2c0\n", 42);
+	printf("%-0.2c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R ->.0\n%-2.0c0\n", 42);
+	printf("%-2.0c0\n\n", 42);
 	delay();
-	homemade = ft_printf("precision =\n%.11c0\n", 42);
-	original = printf("%.11c0\n\n", 42);
+	ft_printf("P+R -=<<\n%-1.2c0\n", 42);
+	printf("%-1.2c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R ->>=\n%-2.1c0\n", 42);
+	printf("%-2.1c0\n\n", 42);
 	delay();
-	homemade = ft_printf("precision >\n%.20c0\n", 42);
-	original = printf("%.20c0\n\n", 42);
+	ft_printf("P+R -<=<\n%-2.2c0\n", 42);
+	printf("%-2.2c0\n\n", 42);
 	delay();
-	
-			
+	ft_printf("P+R -<=<\n%-2.3c0\n", 42);
+	printf("%-2.3c0\n\n", 42);
 	delay();
-	homemade = ft_printf("precision *0\n%.*c0\n", 0, 42);
-	original = printf("%.*c0\n\n", 0, 42);
+	ft_printf("P+R -<=<\n%-3.2c0\n", 42);
+	printf("%-3.2c0\n\n", 42);
 	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *<\n%.*c0\n", 1, 42);
-	original = printf("%.*c0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *=\n%.*c0\n", 11, 42);
-	original = printf("%.*c0\n\n", 11, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *>\n%.*c0\n", 20, 42);
-	original = printf("%.*c0\n\n", 20, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0c0\n", 42);
-	original = printf("%0.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1c0\n", 42);
-	original = printf("%0.1c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.=\n%0.11c0\n", 42);
-	original = printf("%0.11c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20c0\n", 42);
-	original = printf("%0.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <.0\n%1.0c0\n", 42);
-	original = printf("%1.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =.0\n%11.0c0\n", 42);
-	original = printf("%11.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >.0\n%20.0c0\n", 42);
-	original = printf("%20.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0c0\n", 42);
-	original = printf("%-0.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0c0\n", 42);
-	original = printf("%-1.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=.0\n%-11.0c0\n", 42);
-	original = printf("%-11.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0c0\n", 42);
-	original = printf("%-20.0c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<<\n%1.2c0\n", 42);
-	original = printf("%1.2c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <><\n%2.1c0\n", 42);
-	original = printf("%2.1c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<=\n%5.11c0\n", 42);
-	original = printf("%5.11c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =><\n%11.5c0\n", 42);
-	original = printf("%11.5c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<>\n%5.20c0\n", 42);
-	original = printf("%5.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >><\n%20.5c0\n", 42);
-	original = printf("%20.5c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =<>\n%11.20c0\n", 42);
-	original = printf("%11.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>=\n%20.11c0\n", 42);
-	original = printf("%20.11c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ><>\n%15.20c0\n", 42);
-	original = printf("%15.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>>\n%20.15c0\n", 42);
-	original = printf("%20.15c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2c0\n", 42);
-	original = printf("%-1.2c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1c0\n", 42);
-	original = printf("%-2.1c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11c0\n", 42);
-	original = printf("%-5.11c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5c0\n", 42);
-	original = printf("%-11.5c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20c0\n", 42);
-	original = printf("%-5.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5c0\n", 42);
-	original = printf("%-20.5c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20c0\n", 42);
-	original = printf("%-11.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11c0\n", 42);
-	original = printf("%-20.11c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20c0\n", 42);
-	original = printf("%-15.20c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15c0\n", 42);
-	original = printf("%-20.15c0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	delay();
+}
 
-
+void	test_str()
+{
+	delay();
+	delay();
 	printf("\t\tTests sur les chaines :\n\n");
 	delay();
-	
-	homemade = ft_printf("s + NULL\n\n%s0\n", NULL);
-	original = printf("%s0\n\n", NULL);
 	delay();
-	
-			
+	ft_printf("s + NULL\n\n%s0\n", NULL);
+	printf("%s0\n\n", NULL);
 	delay();
-	homemade = ft_printf("empty string\n%s0\n", "");
-	original = printf("%s0\n\n", "");
+	ft_printf("empty string\n%s0\n", "");
+	printf("%s0\n\n", "");
 	delay();
-	
-			
+	ft_printf("%s0\n", "test string");
+	printf("%s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("%s0\n", "test string");
-	original = printf("%s0\n\n", "test string");
+	ft_printf("remplissage 0\n%0s0\n", "test string");
+	printf("%0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("remplissage <\n%1s0\n", "test string");
+	printf("%1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage 0\n%0s0\n", "test string");
-	original = printf("%0s0\n\n", "test string");
+	ft_printf("remplissage =\n%11s0\n", "test string");
+	printf("%11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("remplissage >\n%20s0\n", "test string");
+	printf("%20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage <\n%1s0\n", "test string");
-	original = printf("%1s0\n\n", "test string");
+	ft_printf("remplissage -0\n%-0s0\n", "test string");
+	printf("%-0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("remplissage -<\n%-1s0\n", "test string");
+	printf("%-1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage =\n%11s0\n", "test string");
-	original = printf("%11s0\n\n", "test string");
+	ft_printf("remplissage -=\n%-11s0\n", "test string");
+	printf("%-11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("remplissage ->\n%-20s0\n", "test string");
+	printf("%-20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage >\n%20s0\n", "test string");
-	original = printf("%20s0\n\n", "test string");
+	ft_printf("remplissage *0\n%*s0\n", 0, "test string");
+	printf("%*s0\n\n", 0, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage *-0\n%*s0\n", -0, "test string");
+	printf("%*s0\n\n", -0, "test string");
 	delay();
-	homemade = ft_printf("remplissage -0\n%-0s0\n", "test string");
-	original = printf("%-0s0\n\n", "test string");
+	ft_printf("remplissage -*0\n%-*s0\n", 0, "test string");
+	printf("%-*s0\n\n", 0, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage -*-0\n%-*s0\n", -0, "test string");
+	printf("%-*s0\n\n", -0, "test string");
 	delay();
-	homemade = ft_printf("remplissage -<\n%-1s0\n", "test string");
-	original = printf("%-1s0\n\n", "test string");
+	ft_printf("remplissage *<\n%*s0\n", 1, "test string");
+	printf("%*s0\n\n", 1, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage *=\n%*s0\n", 11, "test string");
+	printf("%*s0\n\n", 11, "test string");
 	delay();
-	homemade = ft_printf("remplissage -=\n%-11s0\n", "test string");
-	original = printf("%-11s0\n\n", "test string");
+	ft_printf("remplissage *>\n%*s0\n", 20, "test string");
+	printf("%*s0\n\n", 20, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage *-<\n%*s0\n", -1, "test string");
+	printf("%*s0\n\n", -1, "test string");
 	delay();
-	homemade = ft_printf("remplissage ->\n%-20s0\n", "test string");
-	original = printf("%-20s0\n\n", "test string");
+	ft_printf("remplissage -*<\n%-*s0\n", 1, "test string");
+	printf("%-*s0\n\n", 1, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage -*-<\n%-*s0\n", -1, "test string");
+	printf("%-*s0\n\n", -1, "test string");
 	delay();
-	homemade = ft_printf("remplissage *0\n%*s0\n", 0, "test string");
-	original = printf("%*s0\n\n", 0, "test string");
+	ft_printf("remplissage *-=\n%*s0\n", -11, "test string");
+	printf("%*s0\n\n", -11, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage -*=\n%-*s0\n", 11, "test string");
+	printf("%-*s0\n\n", 11, "test string");
 	delay();
-	homemade = ft_printf("remplissage *-0\n%*s0\n", -0, "test string");
-	original = printf("%*s0\n\n", -0, "test string");
+	ft_printf("remplissage -*-=\n%-*s0\n", -11, "test string");
+	printf("%-*s0\n\n", -11, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage *->\n%*s0\n", -20, "test string");
+	printf("%*s0\n\n", -20, "test string");
 	delay();
-	homemade = ft_printf("remplissage -*0\n%-*s0\n", 0, "test string");
-	original = printf("%-*s0\n\n", 0, "test string");
+	ft_printf("remplissage -*>\n%-*s0\n", 20, "test string");
+	printf("%-*s0\n\n", 20, "test string");
 	delay();
-	
-			
+	ft_printf("remplissage -*->\n%-*s0\n", -20, "test string");
+	printf("%-*s0\n\n", -20, "test string");
 	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*s0\n", -0, "test string");
-	original = printf("%-*s0\n\n", -0, "test string");
+	ft_printf("precision 0\n%.0s0\n", "test string");
+	printf("%.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("precision <\n%.1s0\n", "test string");
+	printf("%.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage *<\n%*s0\n", 1, "test string");
-	original = printf("%*s0\n\n", 1, "test string");
+	ft_printf("precision =\n%.11s0\n", "test string");
+	printf("%.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("precision >\n%.20s0\n", "test string");
+	printf("%.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage *=\n%*s0\n", 11, "test string");
-	original = printf("%*s0\n\n", 11, "test string");
+	ft_printf("precision *0\n%.*s0\n", 0, "test string");
+	printf("%.*s0\n\n", 0, "test string");
 	delay();
-	
-			
+	ft_printf("precision *<\n%.*s0\n", 1, "test string");
+	printf("%.*s0\n\n", 1, "test string");
 	delay();
-	homemade = ft_printf("remplissage *>\n%*s0\n", 20, "test string");
-	original = printf("%*s0\n\n", 20, "test string");
+	ft_printf("precision *=\n%.*s0\n", 11, "test string");
+	printf("%.*s0\n\n", 11, "test string");
 	delay();
-	
-			
+	ft_printf("precision *>\n%.*s0\n", 20, "test string");
+	printf("%.*s0\n\n", 20, "test string");
 	delay();
-	homemade = ft_printf("remplissage *-<\n%*s0\n", -1, "test string");
-	original = printf("%*s0\n\n", -1, "test string");
+	ft_printf("P+R 0.0\n%0.0s0\n", "test string");
+	printf("%0.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R 0.<\n%0.1s0\n", "test string");
+	printf("%0.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage -*<\n%-*s0\n", 1, "test string");
-	original = printf("%-*s0\n\n", 1, "test string");
+	ft_printf("P+R <.0\n%1.0s0\n", "test string");
+	printf("%1.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R <=<\n%1.1s0\n", "test string");
+	printf("%1.1s0\n\n", "test string");		
 	delay();
-	homemade = ft_printf("remplissage -*-<\n%-*s0\n", -1, "test string");
-	original = printf("%-*s0\n\n", -1, "test string");
+	ft_printf("P+R 0.=\n%0.11s0\n", "test string");
+	printf("%0.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R =.0\n%11.0s0\n", "test string");
+	printf("%11.0s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage *-=\n%*s0\n", -1, "test string");
-	original = printf("%*s0\n\n", -1, "test string");
+	ft_printf("P+R <.=\n%1.11s0\n", "test string");
+	printf("%1.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R =.<\n%11.1s0\n", "test string");
+	printf("%11.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage -*=\n%-*s0\n", 11, "test string");
-	original = printf("%-*s0\n\n", 11, "test string");
+	ft_printf("P+R =.=\n%11.11s0\n", "test string");
+	printf("%11.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R 0.>\n%0.20s0\n", "test string");
+	printf("%0.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage -*-=\n%-*s0\n", -11, "test string");
-	original = printf("%-*s0\n\n", -11, "test string");
+	ft_printf("P+R >.0\n%20.0s0\n", "test string");
+	printf("%20.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R <.>\n%1.20s0\n", "test string");
+	printf("%1.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage *->\n%*s0\n", -20, "test string");
-	original = printf("%*s0\n\n", -20, "test string");
+	ft_printf("P+R >.<\n%20.1s0\n", "test string");
+	printf("%20.1s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R =.>\n%11.20s0\n", "test string");
+	printf("%11.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage -*>\n%-*s0\n", 20, "test string");
-	original = printf("%-*s0\n\n", 20, "test string");
+	ft_printf("P+R >.=\n%20.11s0\n", "test string");
+	printf("%20.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R >=>\n%20.20s0\n", "test string");
+	printf("%20.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("remplissage -*->\n%-*s0\n", -20, "test string");
-	original = printf("%-*s0\n\n", -20, "test string");
+	ft_printf("P+R ><<\n%20.22s0\n", "test string");
+	printf("%20.22s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R >>>\n%22.20s0\n", "test string");
+	printf("%22.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision 0\n%.0s0\n", "test string");
-	original = printf("%.0s0\n\n", "test string");
+	ft_printf("P+R -0.0\n%-0.0s0\n", "test string");
+	printf("%-0.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -0.<\n%-0.1s0\n", "test string");
+	printf("%-0.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision <\n%.1s0\n", "test string");
-	original = printf("%.1s0\n\n", "test string");
+	ft_printf("P+R -<.0\n%-1.0s0\n", "test string");
+	printf("%-1.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -<=<\n%-1.1s0\n", "test string");
+	printf("%-1.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision =\n%.11s0\n", "test string");
-	original = printf("%.11s0\n\n", "test string");
+	ft_printf("P+R -0.=\n%-0.11s0\n", "test string");
+	printf("%-0.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -=.0\n%-11.0s0\n", "test string");
+	printf("%-11.0s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision >\n%.20s0\n", "test string");
-	original = printf("%.20s0\n\n", "test string");
+	ft_printf("P+R -<.=\n%-1.11s0\n", "test string");
+	printf("%-1.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -=.<\n%-11.1s0\n", "test string");
+	printf("%-11.1s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision *0\n%.*s0\n", 0, "test string");
-	original = printf("%.*s0\n\n", 0, "test string");
+	ft_printf("P+R -=.=\n%-11.11s0\n", "test string");
+	printf("%-11.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -0.>\n%-0.20s0\n", "test string");
+	printf("%-0.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision *<\n%.*s0\n", 1, "test string");
-	original = printf("%.*s0\n\n", 1, "test string");
+	ft_printf("P+R ->.0\n%-20.0s0\n", "test string");
+	printf("%-20.0s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -<.>\n%-1.20s0\n", "test string");
+	printf("%-1.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision *=\n%.*s0\n", 11, "test string");
-	original = printf("%.*s0\n\n", 11, "test string");
+	ft_printf("P+R ->.<\n%-20.1s0\n", "test string");
+	printf("%-20.1s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R -=.>\n%-11.20s0\n", "test string");
+	printf("%-11.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("precision *>\n%.*s0\n", 20, "test string");
-	original = printf("%.*s0\n\n", 20, "test string");
+	ft_printf("P+R ->.=\n%-20.11s0\n", "test string");
+	printf("%-20.11s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R ->=>\n%-20.20s0\n", "test string");
+	printf("%-20.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0s0\n", "test string");
-	original = printf("%0.0s0\n\n", "test string");
+	ft_printf("P+R -><<\n%-20.22s0\n", "test string");
+	printf("%-20.22s0\n\n", "test string");
 	delay();
-	
-			
+	ft_printf("P+R ->>>\n%-22.20s0\n", "test string");
+	printf("%-22.20s0\n\n", "test string");
 	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1s0\n", "test string");
-	original = printf("%0.1s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.=\n%0.11s0\n", "test string");
-	original = printf("%0.11s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20s0\n", "test string");
-	original = printf("%0.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <.0\n%1.0s0\n", "test string");
-	original = printf("%1.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =.0\n%11.0s0\n", "test string");
-	original = printf("%11.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >.0\n%20.0s0\n", "test string");
-	original = printf("%20.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0s0\n", "test string");
-	original = printf("%-0.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0s0\n", "test string");
-	original = printf("%-1.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=.0\n%-11.0s0\n", "test string");
-	original = printf("%-11.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0s0\n", "test string");
-	original = printf("%-20.0s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<<\n%1.2s0\n", "test string");
-	original = printf("%1.2s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <><\n%2.1s0\n", "test string");
-	original = printf("%2.1s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<=\n%5.11s0\n", "test string");
-	original = printf("%5.11s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =><\n%11.5s0\n", "test string");
-	original = printf("%11.5s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<>\n%5.20s0\n", "test string");
-	original = printf("%5.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >><\n%20.5s0\n", "test string");
-	original = printf("%20.5s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =<>\n%11.20s0\n", "test string");
-	original = printf("%11.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>=\n%20.11s0\n", "test string");
-	original = printf("%20.11s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ><>\n%15.20s0\n", "test string");
-	original = printf("%15.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>>\n%20.15s0\n", "test string");
-	original = printf("%20.15s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2s0\n", "test string");
-	original = printf("%-1.2s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1s0\n", "test string");
-	original = printf("%-2.1s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11s0\n", "test string");
-	original = printf("%-5.11s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5s0\n", "test string");
-	original = printf("%-11.5s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20s0\n", "test string");
-	original = printf("%-5.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5s0\n", "test string");
-	original = printf("%-20.5s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20s0\n", "test string");
-	original = printf("%-11.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11s0\n", "test string");
-	original = printf("%-20.11s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20s0\n", "test string");
-	original = printf("%-15.20s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15s0\n", "test string");
-	original = printf("%-20.15s0\n\n", "test string");
-	delay();
-	
-			
-	delay();
-	delay();
+}
 
+void	test_pnt()
+{
+	int i;
 
+	delay();
+	delay();
 	printf("\t\tTests sur les pointeurs :\n\n");
 	delay();
+	delay();
+	ft_printf("Random value\n%p*\n", &i);
+	printf("%p*\n\n", &i);		
+	delay();
+	ft_printf("NULL\n%p*\n", NULL);
+	printf("%p*\n\n", NULL);		
+	delay();
+	ft_printf("0\n%p*\n", 0);
+	printf("%p*\n\n", 0);		
+	delay();
+	ft_printf("Max ?\n%p*\n", 0xffffffffffff);
+	printf("%p*\n\n", 0xffffffffffff);		
+	delay();
+	ft_printf("remplissage 0\n%0p0\n", &i);
+	printf("%0p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage <\n%1p0\n", &i);
+	printf("%1p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage =\n%11p0\n", &i);
+	printf("%11p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage >\n%20p0\n", &i);
+	printf("%20p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage -0\n%-0p0\n", &i);
+	printf("%-0p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage -<\n%-1p0\n", &i);
+	printf("%-1p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage -=\n%-11p0\n", &i);
+	printf("%-11p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage ->\n%-20p0\n", &i);
+	printf("%-20p0\n\n", &i);		
+	delay();
+	ft_printf("remplissage *0\n%*p0\n", 0, &i);
+	printf("%*p0\n\n", 0, &i);		
+	delay();
+	ft_printf("remplissage *-0\n%*p0\n", -0, &i);
+	printf("%*p0\n\n", -0, &i);		
+	delay();
+	ft_printf("remplissage -*0\n%-*p0\n", 0, &i);
+	printf("%-*p0\n\n", 0, &i);		
+	delay();
+	ft_printf("remplissage -*-0\n%-*p0\n", -0, &i);
+	printf("%-*p0\n\n", -0, &i);		
+	delay();
+	ft_printf("remplissage *<\n%*p0\n", 1, &i);
+	printf("%*p0\n\n", 1, &i);		
+	delay();
+	ft_printf("remplissage *=\n%*p0\n", 11, &i);
+	printf("%*p0\n\n", 11, &i);		
+	delay();
+	ft_printf("remplissage *>\n%*p0\n", 20, &i);
+	printf("%*p0\n\n", 20, &i);		
+	delay();
+	ft_printf("remplissage *-<\n%*p0\n", -1, &i);
+	printf("%*p0\n\n", -1, &i);		
+	delay();
+	ft_printf("remplissage -*<\n%-*p0\n", 1, &i);
+	printf("%-*p0\n\n", 1, &i);		
+	delay();
+	ft_printf("remplissage -*-<\n%-*p0\n", -1, &i);
+	printf("%-*p0\n\n", -1, &i);		
+	delay();
+	ft_printf("remplissage *-=\n%*p0\n", -1, &i);
+	printf("%*p0\n\n", -1, &i);		
+	delay();
+	ft_printf("remplissage -*=\n%-*p0\n", 11, &i);
+	printf("%-*p0\n\n", 11, &i);		
+	delay();
+	ft_printf("remplissage -*-=\n%-*p0\n", -11, &i);
+	printf("%-*p0\n\n", -11, &i);		
+	delay();
+	ft_printf("remplissage *->\n%*p0\n", -20, &i);
+	printf("%*p0\n\n", -1, &i);		
+	delay();
+	ft_printf("remplissage -*>\n%-*p0\n", 20, &i);
+	printf("%-*p0\n\n", 1, &i);		
+	delay();
+	ft_printf("remplissage -*->\n%-*p0\n", -20, &i);
+	printf("%-*p0\n\n", -1, &i);		
+	delay();
+	ft_printf("precision 0\n%.0p0\n", &i);
+	printf("%.0p0\n\n", &i);		
+	delay();
+	ft_printf("precision <\n%.1p0\n", &i);
+	printf("%.1p0\n\n", &i);		
+	delay();
+	ft_printf("precision =\n%.11p0\n", &i);
+	printf("%.11p0\n\n", &i);		
+	delay();
+	ft_printf("precision >\n%.20p0\n", &i);
+	printf("%.20p0\n\n", &i);		
+	delay();
+	ft_printf("precision *0\n%.*p0\n", 0, &i);
+	printf("%.*p0\n\n", 0, &i);		
+	delay();
+	ft_printf("precision *<\n%.*p0\n", 1, &i);
+	printf("%.*p0\n\n", 1, &i);		
+	delay();
+	ft_printf("precision *=\n%.*p0\n", 11, &i);
+	printf("%.*p0\n\n", 11, &i);		
+	delay();
+	ft_printf("precision *>\n%.*p0\n", 20, &i);
+	printf("%.*p0\n\n", 20, &i);		
+	delay();
+	ft_printf("P+R 0.0\n%0.0p0\n", &i);
+	printf("%0.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R 0.<\n%0.1p0\n", &i);
+	printf("%0.1p0\n\n", &i);		
+	delay();
+	ft_printf("P+R 0.=\n%0.11p0\n", &i);
+	printf("%0.11p0\n\n", &i);		
+	delay();
+	ft_printf("P+R 0.>\n%0.20p0\n", &i);
+	printf("%0.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R <.0\n%1.0p0\n", &i);
+	printf("%1.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R =.0\n%11.0p0\n", &i);
+	printf("%11.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R >.0\n%20.0p0\n", &i);
+	printf("%20.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -0.0\n%-0.0p0\n", &i);
+	printf("%-0.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -<.0\n%-1.0p0\n", &i);
+	printf("%-1.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -=.0\n%-11.0p0\n", &i);
+	printf("%-11.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R ->.0\n%-20.0p0\n", &i);
+	printf("%-20.0p0\n\n", &i);		
+	delay();
+	ft_printf("P+R <<<\n%1.2p0\n", &i);
+	printf("%1.2p0\n\n", &i);		
+	delay();
+	ft_printf("P+R <><\n%2.1p0\n", &i);
+	printf("%2.1p0\n\n", &i);		
+	delay();
+	ft_printf("P+R <<=\n%5.11p0\n", &i);
+	printf("%5.11p0\n\n", &i);		
+	delay();
+	ft_printf("P+R =><\n%11.5p0\n", &i);
+	printf("%11.5p0\n\n", &i);		
+	delay();
+	ft_printf("P+R <<>\n%5.20p0\n", &i);
+	printf("%5.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R >><\n%20.5p0\n", &i);
+	printf("%20.5p0\n\n", &i);		
+	delay();
+	ft_printf("P+R =<>\n%11.20p0\n", &i);
+	printf("%11.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R >>=\n%20.11p0\n", &i);
+	printf("%20.11p0\n\n", &i);		
+	delay();
+	ft_printf("P+R ><>\n%15.20p0\n", &i);
+	printf("%15.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R >>>\n%20.15p0\n", &i);
+	printf("%20.15p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -<<<\n%-1.2p0\n", &i);
+	printf("%-1.2p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -<><\n%-2.1p0\n", &i);
+	printf("%-2.1p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -<<=\n%-5.11p0\n", &i);
+	printf("%-5.11p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -=><\n%-11.5p0\n", &i);
+	printf("%-11.5p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -<<>\n%-5.20p0\n", &i);
+	printf("%-5.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R ->><\n%-20.5p0\n", &i);
+	printf("%-20.5p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -=<>\n%-11.20p0\n", &i);
+	printf("%-11.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R ->>=\n%-20.11p0\n", &i);
+	printf("%-20.11p0\n\n", &i);		
+	delay();
+	ft_printf("P+R -><>\n%-15.20p0\n", &i);
+	printf("%-15.20p0\n\n", &i);		
+	delay();
+	ft_printf("P+R ->>>\n%-20.15p0\n", &i);
+	printf("%-20.15p0\n\n", &i);		
+	delay();
+}
 
-	homemade = ft_printf("Random value\n%p*\n", &i);
-	original = printf("%p*\n\n", &i);
+void	test_int()
+{
 	delay();
-	
-			
 	delay();
-	homemade = ft_printf("NULL\n%p*\n", NULL);
-	original = printf("%p*\n\n", NULL);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("0\n%p*\n", 0);
-	original = printf("%p*\n\n", 0);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("Max ?\n%p*\n", 0xffffffffffff);
-	original = printf("%p*\n\n", 0xffffffffffff);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage 0\n%0p0\n", &i);
-	original = printf("%0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage <\n%1p0\n", &i);
-	original = printf("%1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage =\n%11p0\n", &i);
-	original = printf("%11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage >\n%20p0\n", &i);
-	original = printf("%20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -0\n%-0p0\n", &i);
-	original = printf("%-0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -<\n%-1p0\n", &i);
-	original = printf("%-1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -=\n%-11p0\n", &i);
-	original = printf("%-11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage ->\n%-20p0\n", &i);
-	original = printf("%-20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *0\n%*p0\n", 0, &i);
-	original = printf("%*p0\n\n", 0, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-0\n%*p0\n", -0, &i);
-	original = printf("%*p0\n\n", -0, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*0\n%-*p0\n", 0, &i);
-	original = printf("%-*p0\n\n", 0, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*p0\n", -0, &i);
-	original = printf("%-*p0\n\n", -0, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *<\n%*p0\n", 1, &i);
-	original = printf("%*p0\n\n", 1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *=\n%*p0\n", 11, &i);
-	original = printf("%*p0\n\n", 11, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *>\n%*p0\n", 20, &i);
-	original = printf("%*p0\n\n", 20, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-<\n%*p0\n", -1, &i);
-	original = printf("%*p0\n\n", -1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*<\n%-*p0\n", 1, &i);
-	original = printf("%-*p0\n\n", 1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-<\n%-*p0\n", -1, &i);
-	original = printf("%-*p0\n\n", -1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-=\n%*p0\n", -1, &i);
-	original = printf("%*p0\n\n", -1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*=\n%-*p0\n", 11, &i);
-	original = printf("%-*p0\n\n", 11, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-=\n%-*p0\n", -11, &i);
-	original = printf("%-*p0\n\n", -11, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *->\n%*p0\n", -20, &i);
-	original = printf("%*p0\n\n", -1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*>\n%-*p0\n", 20, &i);
-	original = printf("%-*p0\n\n", 1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*->\n%-*p0\n", -20, &i);
-	original = printf("%-*p0\n\n", -1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision 0\n%.0p0\n", &i);
-	original = printf("%.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision <\n%.1p0\n", &i);
-	original = printf("%.1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision =\n%.11p0\n", &i);
-	original = printf("%.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision >\n%.20p0\n", &i);
-	original = printf("%.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *0\n%.*p0\n", 0, &i);
-	original = printf("%.*p0\n\n", 0, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *<\n%.*p0\n", 1, &i);
-	original = printf("%.*p0\n\n", 1, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *=\n%.*p0\n", 11, &i);
-	original = printf("%.*p0\n\n", 11, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *>\n%.*p0\n", 20, &i);
-	original = printf("%.*p0\n\n", 20, &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0p0\n", &i);
-	original = printf("%0.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1p0\n", &i);
-	original = printf("%0.1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.=\n%0.11p0\n", &i);
-	original = printf("%0.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20p0\n", &i);
-	original = printf("%0.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <.0\n%1.0p0\n", &i);
-	original = printf("%1.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =.0\n%11.0p0\n", &i);
-	original = printf("%11.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >.0\n%20.0p0\n", &i);
-	original = printf("%20.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0p0\n", &i);
-	original = printf("%-0.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0p0\n", &i);
-	original = printf("%-1.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=.0\n%-11.0p0\n", &i);
-	original = printf("%-11.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0p0\n", &i);
-	original = printf("%-20.0p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<<\n%1.2p0\n", &i);
-	original = printf("%1.2p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <><\n%2.1p0\n", &i);
-	original = printf("%2.1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<=\n%5.11p0\n", &i);
-	original = printf("%5.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =><\n%11.5p0\n", &i);
-	original = printf("%11.5p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<>\n%5.20p0\n", &i);
-	original = printf("%5.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >><\n%20.5p0\n", &i);
-	original = printf("%20.5p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =<>\n%11.20p0\n", &i);
-	original = printf("%11.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>=\n%20.11p0\n", &i);
-	original = printf("%20.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ><>\n%15.20p0\n", &i);
-	original = printf("%15.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>>\n%20.15p0\n", &i);
-	original = printf("%20.15p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2p0\n", &i);
-	original = printf("%-1.2p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1p0\n", &i);
-	original = printf("%-2.1p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11p0\n", &i);
-	original = printf("%-5.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5p0\n", &i);
-	original = printf("%-11.5p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20p0\n", &i);
-	original = printf("%-5.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5p0\n", &i);
-	original = printf("%-20.5p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20p0\n", &i);
-	original = printf("%-11.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11p0\n", &i);
-	original = printf("%-20.11p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20p0\n", &i);
-	original = printf("%-15.20p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15p0\n", &i);
-	original = printf("%-20.15p0\n\n", &i);
-	delay();
-	
-			
-	delay();
-	delay();
-*/
-
 	printf("\t\tTests sur les entiers (d & i) :\n\n");
 	delay();
+	delay();
+	ft_printf("%d %d %d %d %d\n", -2147483648, -1, 0, 1, 2147483647);
+	printf("%d %d %d %d %d\n\n", -2147483648, -1, 0, 1, 2147483647);
+	delay();
+	ft_printf("%i %i %i %i %i\n", -2147483648, -1, 0, 1, 2147483647);
+	printf("%i %i %i %i %i\n\n", -2147483648, -1, 0, 1, 2147483647);	
+	delay();
+	ft_printf("remplissage 0\n%0d0\n", 42);
+	printf("%0d0\n\n", 42);
+	delay();
+	ft_printf("remplissage <\n%1d0\n", 42);
+	printf("%1d0\n\n", 42);
+	delay();
+	ft_printf("remplissage =\n%2d0\n", 42);
+	printf("%2d0\n\n", 42);
+	delay();
+	ft_printf("remplissage >\n%3d0\n", 42);
+	printf("%3d0\n\n", 42);
+	delay();
+	ft_printf("remplissage -0\n%-0d0\n", 42);
+	printf("%-0d0\n\n", 42);
+	delay();
+	ft_printf("remplissage ->\n%-1d0\n", 42);
+	printf("%-1d0\n\n", 42);
+	delay();
+	ft_printf("remplissage -=\n%-2d0\n", 42);
+	printf("%-2d0\n\n", 42);
+	delay();
+	ft_printf("remplissage ->\n%-3d0\n", 42);
+	printf("%-3d0\n\n", 42);
+	delay();
+	ft_printf("remplissage *0\n%*d0\n", 0, 42);
+	printf("%*d0\n\n", 0, 42);
+	delay();
+	ft_printf("remplissage *<\n%*d0\n", 1, 42);
+	printf("%*d0\n\n", 1, 42);
+	delay();
+	ft_printf("remplissage *=\n%*d0\n", 2, 42);
+	printf("%*d0\n\n", 2, 42);
+	delay();
+	ft_printf("remplissage *>\n%*d0\n", 3, 42);
+	printf("%*d0\n\n", 3, 42);
+	delay();
+	ft_printf("remplissage *-0\n%*d0\n", -0, 42);
+	printf("%*d0\n\n", -0, 42);
+	delay();
+	ft_printf("remplissage *->\n%*d0\n", -1, 42);
+	printf("%*d0\n\n", -1, 42);
+	delay();
+	ft_printf("remplissage *-=\n%*d0\n", -2, 42);
+	printf("%*d0\n\n", -2, 42);
+	delay();
+	ft_printf("remplissage *->\n%*d0\n", -3, 42);
+	printf("%*d0\n\n", -3, 42);
+	delay();
+	ft_printf("remplissage -*0\n%-*d0\n", 0, 42);
+	printf("%-*d0\n\n", 0, 42);
+	delay();
+	ft_printf("remplissage -*<\n%-*d0\n", 1, 42);
+	printf("%-*d0\n\n", 1, 42);
+	delay();
+	ft_printf("remplissage -*=\n%-*d0\n", 2, 42);
+	printf("%-*d0\n\n", 2, 42);
+	delay();
+	ft_printf("remplissage -*>\n%-*d0\n", 3, 42);
+	printf("%-*d0\n\n", 3, 42);
+	delay();
+	ft_printf("remplissage -*-0\n%-*d0\n", -0, 42);
+	printf("%-*d0\n\n", -0, 42);
+	delay();
+	ft_printf("remplissage -*-<\n%-*d0\n", -1, 42);
+	printf("%-*d0\n\n", -1, 42);
+	delay();
+	ft_printf("remplissage -*-=\n%-*d0\n", -2, 42);
+	printf("%-*d0\n\n", -2, 42);
+	delay();
+	ft_printf("remplissage -*->\n%-*d0\n", -3, 42);
+	printf("%-*d0\n\n", -3, 42);
+	delay();
+	ft_printf("precision 0\n%.0d0\n", 42);
+	printf("%.0d0\n\n", 42);
+	delay();
+	ft_printf("precision <\n%.1d0\n", 42);
+	printf("%.1d0\n\n", 42);
+	delay();
+	ft_printf("precision =\n%.2d0\n", 42);
+	printf("%.2d0\n\n", 42);
+	delay();
+	ft_printf("precision >\n%.3d0\n", 42);
+	printf("%.3d0\n\n", 42);
+	delay();
+	ft_printf("precision *0\n%.*d0\n", 0, 42);
+	printf("%.*d0\n\n", 0, 42);
+	delay();
+	ft_printf("precision *<\n%.*d0\n", 1, 42);
+	printf("%.*d0\n\n", 1, 42);
+	delay();
+	ft_printf("precision *=\n%.*d0\n", 2, 42);
+	printf("%.*d0\n\n", 2, 42);
+	delay();
+	ft_printf("precision *>\n%.*d0\n", 3, 42);
+	printf("%.*d0\n\n", 3, 42);
+	delay();
+	ft_printf("P+R 0.0\n%0.0d0\n", 42);
+	printf("%0.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.<\n%0.1d0\n", 42);
+	printf("%0.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R <.0\n%1.0d0\n", 42);
+	printf("%1.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R <=<\n%1.1d0\n", 42);
+	printf("%1.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.=\n%0.2d0\n", 42);
+	printf("%0.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R =.0\n%2.0d0\n", 42);
+	printf("%2.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R <.=\n%1.2d0\n", 42);
+	printf("%1.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R =.<\n%2.1d0\n", 42);
+	printf("%2.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R =.=\n%2.2d0\n", 42);
+	printf("%2.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.>\n%0.3d0\n", 42);
+	printf("%0.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R >.0\n%3.0d0\n", 42);
+	printf("%3.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R <.>\n%1.3d0\n", 42);
+	printf("%1.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R >.<\n%3.1d0\n", 42);
+	printf("%3.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R =><\n%2.3d0\n", 42);
+	printf("%2.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R >.=\n%3.2d0\n", 42);
+	printf("%3.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R >=>\n%3.3d0\n", 42);
+	printf("%3.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R ><>\n%3.4d0\n", 42);
+	printf("%3.4d0\n\n", 42);
+	delay();
+	ft_printf("P+R >>>\n%4.3d0\n", 42);
+	printf("%4.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.0\n%-0.0d0\n", 42);
+	printf("%-0.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.<\n%-0.1d0\n", 42);
+	printf("%-0.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.0\n%-1.0d0\n", 42);
+	printf("%-1.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R -<=<\n%-1.1d0\n", 42);
+	printf("%-1.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.=\n%-0.2d0\n", 42);
+	printf("%-0.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.0\n%-2.0d0\n", 42);
+	printf("%-2.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.=\n%-1.2d0\n", 42);
+	printf("%-1.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.<\n%-2.1d0\n", 42);
+	printf("%-2.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.=\n%-2.2d0\n", 42);
+	printf("%-2.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.>\n%-0.3d0\n", 42);
+	printf("%-0.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R ->.0\n%-3.0d0\n", 42);
+	printf("%-3.0d0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.>\n%-1.3d0\n", 42);
+	printf("%-1.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R ->.<\n%-3.1d0\n", 42);
+	printf("%-3.1d0\n\n", 42);
+	delay();
+	ft_printf("P+R -=><\n%-2.3d0\n", 42);
+	printf("%-2.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R ->.=\n%-3.2d0\n", 42);
+	printf("%-3.2d0\n\n", 42);
+	delay();
+	ft_printf("P+R ->=>\n%-3.3d0\n", 42);
+	printf("%-3.3d0\n\n", 42);
+	delay();
+	ft_printf("P+R -><>\n%-3.4d0\n", 42);
+	printf("%-3.4d0\n\n", 42);
+	delay();
+	ft_printf("P+R ->>>\n%-4.3d0\n", 42);
+	printf("%-4.3d0\n\n", 42);
+	delay();
+}
 
-	homemade = ft_printf("%d %d %d %d %d\n", -2147483648, -1, 0, 1, 2147483647);
-	original = printf("%d %d %d %d %d\n", -2147483648, -1, 0, 1, 2147483647);
+void	test_uns()
+{
 	delay();
-	
-		
-	homemade = ft_printf("%i %i %i %i %i\n", -2147483648, -1, 0, 1, 2147483647);
-	original = printf("%i %i %i %i %i\n", -2147483648, -1, 0, 1, 2147483647);
 	delay();
-	
-		
-	delay();
-	homemade = ft_printf("remplissage 0\n%0d0\n", 42);
-	original = printf("%0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage <\n%1d0\n", 42);
-	original = printf("%1d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage =\n%2d0\n", 42);
-	original = printf("%2d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage >\n%2d0\n", 42);
-	original = printf("%2d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -0\n%-0d0\n", 42);
-	original = printf("%-0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -1\n%-1d0\n", 42);
-	original = printf("%-1d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage ->\n%-2d0\n", 42);
-	original = printf("%-2d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *0\n%*d0\n", 0, 42);
-	original = printf("%*d0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *1\n%*d0\n", 1, 42);
-	original = printf("%*d0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *>\n%*d0\n", 2, 42);
-	original = printf("%*d0\n\n", 2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-0\n%*d0\n", -0, 42);
-	original = printf("%*d0\n\n", -0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-1\n%*d0\n", -1, 42);
-	original = printf("%*d0\n\n", -1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *->\n%*d0\n", -2, 42);
-	original = printf("%*d0\n\n", -2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*0\n%-*d0\n", 0, 42);
-	original = printf("%-*d0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*1\n%-*d0\n", 1, 42);
-	original = printf("%-*d0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*>\n%-*d0\n", 2, 42);
-	original = printf("%-*d0\n\n", 2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*d0\n", -0, 42);
-	original = printf("%-*d0\n\n", -0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-1\n%-*d0\n", -1, 42);
-	original = printf("%-*d0\n\n", -1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*->\n%-*d0\n", -2, 42);
-	original = printf("%-*d0\n\n", -2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision 0\n%.0d0\n", 42);
-	original = printf("%.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision <\n%.1d0\n", 42);
-	original = printf("%.1d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision =\n%.2d0\n", 42);
-	original = printf("%.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision >\n%.20d0\n", 42);
-	original = printf("%.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *0\n%.*d0\n", 0, 42);
-	original = printf("%.*d0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *<\n%.*d0\n", 1, 42);
-	original = printf("%.*d0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *=\n%.*d0\n", 2, 42);
-	original = printf("%.*d0\n\n", 11, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *>\n%.*d0\n", 20, 42);
-	original = printf("%.*d0\n\n", 20, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0d0\n", 42);
-	original = printf("%0.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1d0\n", 42);
-	original = printf("%0.1d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.=\n%0.2d0\n", 42);
-	original = printf("%0.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20d0\n", 42);
-	original = printf("%0.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <.0\n%1.0d0\n", 42);
-	original = printf("%1.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =.0\n%2.0d0\n", 42);
-	original = printf("%11.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >.0\n%20.0d0\n", 42);
-	original = printf("%20.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0d0\n", 42);
-	original = printf("%-0.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0d0\n", 42);
-	original = printf("%-1.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=.0\n%-2.0d0\n", 42);
-	original = printf("%-11.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0d0\n", 42);
-	original = printf("%-20.0d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<<\n%1.2d0\n", 42);
-	original = printf("%1.2d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <><\n%2.1d0\n", 42);
-	original = printf("%2.1d0\n\n", 42);
-	delay();
-	
-//!
-	delay();
-	homemade = ft_printf("P+R <<=\n%5.2d0\n", 42);
-	original = printf("%5.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =><\n%11.5d0\n", 42);
-	original = printf("%11.5d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<>\n%5.20d0\n", 42);
-	original = printf("%5.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >><\n%20.5d0\n", 42);
-	original = printf("%20.5d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =<>\n%11.20d0\n", 42);
-	original = printf("%11.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>=\n%20.11d0\n", 42);
-	original = printf("%20.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ><>\n%15.20d0\n", 42);
-	original = printf("%15.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>>\n%20.15d0\n", 42);
-	original = printf("%20.15d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2d0\n", 42);
-	original = printf("%-1.2d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1d0\n", 42);
-	original = printf("%-2.1d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11d0\n", 42);
-	original = printf("%-5.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5d0\n", 42);
-	original = printf("%-11.5d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20d0\n", 42);
-	original = printf("%-5.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5d0\n", 42);
-	original = printf("%-20.5d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20d0\n", 42);
-	original = printf("%-11.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11d0\n", 42);
-	original = printf("%-20.11d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20d0\n", 42);
-	original = printf("%-15.20d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15d0\n", 42);
-	original = printf("%-20.15d0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	delay();
-/*
-
 	printf("\t\tTests sur les non signés (u) :\n\n");
 	delay();
+	delay();
+	ft_printf("%u %u %u %u %u\n", -2147483648, -1, 0, 1, 2147483647);
+	printf("%u %u %u %u %u\n\n", -2147483648, -1, 0, 1, 2147483647);
+	delay();
+	ft_printf("remplissage 0\n%0u0\n", 42);
+	printf("%0u0\n\n", 42);
+	delay();
+	ft_printf("remplissage <\n%1u0\n", 42);
+	printf("%1u0\n\n", 42);
+	delay();
+	ft_printf("remplissage =\n%2u0\n", 42);
+	printf("%2u0\n\n", 42);
+	delay();
+	ft_printf("remplissage >\n%3u0\n", 42);
+	printf("%3u0\n\n", 42);
+	delay();
+	ft_printf("remplissage -0\n%-0u0\n", 42);
+	printf("%-0u0\n\n", 42);
+	delay();
+	ft_printf("remplissage -<\n%-1u0\n", 42);
+	printf("%1u0\n\n", 42);
+	delay();
+	ft_printf("remplissage -=\n%-2u0\n", 42);
+	printf("%2u0\n\n", 42);
+	delay();
+	ft_printf("remplissage ->\n%-3u0\n", 42);
+	printf("%-3u0\n\n", 42);
+	delay();
+	ft_printf("remplissage *0\n%*u0\n", 0, 42);
+	printf("%*u0\n\n", 0, 42);
+	delay();
+	ft_printf("remplissage *<\n%*u0\n", 1, 42);
+	printf("%*u0\n\n", 1, 42);
+	delay();
+	ft_printf("remplissage *=\n%*u0\n", 2, 42);
+	printf("%*u0\n\n", 2, 42);
+	delay();
+	ft_printf("remplissage *>\n%*u0\n", 3, 42);
+	printf("%*u0\n\n", 3, 42);
+	delay();
+	ft_printf("remplissage *-0\n%*u0\n", -0, 42);
+	printf("%*u0\n\n", -0, 42);
+	delay();
+	ft_printf("remplissage *-<\n%*u0\n", -1, 42);
+	printf("%*u0\n\n", -1, 42);
+	delay();
+	ft_printf("remplissage *-=\n%*u0\n", -2, 42);
+	printf("%*u0\n\n", -2, 42);
+	delay();
+	ft_printf("remplissage *->\n%*u0\n", -3, 42);
+	printf("%*u0\n\n", -3, 42);
+	delay();
+	ft_printf("remplissage -*0\n%-*u0\n", 0, 42);
+	printf("%-*u0\n\n", 0, 42);
+	delay();
+	ft_printf("remplissage -*<\n%-*u0\n", 1, 42);
+	printf("%-*u0\n\n", 1, 42);
+	delay();
+	ft_printf("remplissage -*=\n%-*u0\n", 2, 42);
+	printf("%-*u0\n\n", 2, 42);
+	delay();
+	ft_printf("remplissage -*>\n%-*u0\n", 3, 42);
+	printf("%-*u0\n\n", 3, 42);
+	delay();
+	ft_printf("remplissage -*-0\n%-*u0\n", -0, 42);
+	printf("%-*u0\n\n", -0, 42);
+	delay();
+	ft_printf("remplissage -*-<\n%-*u0\n", -1, 42);
+	printf("%-*u0\n\n", -1, 42);
+	delay();
+	ft_printf("remplissage -*-=\n%-*u0\n", -2, 42);
+	printf("%-*u0\n\n", -2, 42);
+	delay();
+	ft_printf("remplissage -*->\n%-*u0\n", -3, 42);
+	printf("%-*u0\n\n", -3, 42);
+	delay();
+	ft_printf("precision 0\n%.0u0\n", 42);
+	printf("%.0u0\n\n", 42);
+	delay();
+	ft_printf("precision <\n%.1u0\n", 42);
+	printf("%.1u0\n\n", 42);
+	delay();
+	ft_printf("precision =\n%.2u0\n", 42);
+	printf("%.2u0\n\n", 42);
+	delay();
+	ft_printf("precision >\n%.3u0\n", 42);
+	printf("%.3u0\n\n", 42);
+	delay();
+	ft_printf("precision *0\n%.*u0\n", 0, 42);
+	printf("%.*u0\n\n", 0, 42);
+	delay();
+	ft_printf("precision *<\n%.*u0\n", 1, 42);
+	printf("%.*u0\n\n", 1, 42);
+	delay();
+	ft_printf("precision *=\n%.*u0\n", 2, 42);
+	printf("%.*u0\n\n", 2, 42);
+	delay();
+	ft_printf("precision *>\n%.*u0\n", 20, 42);
+	printf("%.*u0\n\n", 20, 42);
+	delay();
+	ft_printf("P+R 0.0\n%0.0u0\n", 42);
+	printf("%0.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.<\n%0.1u0\n", 42);
+	printf("%0.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.=\n%0.2u0\n", 42);
+	printf("%0.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R 0.>\n%0.3u0\n", 42);
+	printf("%0.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R <.0\n%1.0u0\n", 42);
+	printf("%1.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R =.0\n%2.0u0\n", 42);
+	printf("%2.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R >.0\n%3.0u0\n", 42);
+	printf("%3.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R <.<\n%1.1u0\n", 42);
+	printf("%1.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R <.=\n%1.2u0\n", 42);
+	printf("%1.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R =.<\n%2.1u0\n", 42);
+	printf("%2.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R =.=\n%2.2u0\n", 42);
+	printf("%2.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R <<>\n%1.3u0\n", 42);
+	printf("%1.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R >><\n%3.1u0\n", 42);
+	printf("%3.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R >>=\n%3.2u0\n", 42);
+	printf("%3.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R =.>\n%2.3u0\n", 42);
+	printf("%2.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R >>>\n%4.3u0\n", 42);
+	printf("%4.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R >=>\n%3.3u0\n", 42);
+	printf("%3.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R ><>\n%3.4u0\n", 42);
+	printf("%3.4u0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.0\n%-0.0u0\n", 42);
+	printf("%-0.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.<\n%-0.1u0\n", 42);
+	printf("%-0.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.=\n%-0.2u0\n", 42);
+	printf("%-0.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R -0.>\n%-0.3u0\n", 42);
+	printf("%-0.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.0\n%-1.0u0\n", 42);
+	printf("%-1.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.0\n%-2.0u0\n", 42);
+	printf("%-2.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R ->.0\n%-3.0u0\n", 42);
+	printf("%-3.0u0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.<\n%-1.1u0\n", 42);
+	printf("%-1.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R -<.=\n%-1.2u0\n", 42);
+	printf("%-1.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.<\n%-2.1u0\n", 42);
+	printf("%-2.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.=\n%-2.2u0\n", 42);
+	printf("%-2.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R -<<>\n%-1.3u0\n", 42);
+	printf("%-1.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R ->><\n%-3.1u0\n", 42);
+	printf("%-3.1u0\n\n", 42);
+	delay();
+	ft_printf("P+R ->>=\n%-3.2u0\n", 42);
+	printf("%-3.2u0\n\n", 42);
+	delay();
+	ft_printf("P+R -=.>\n%-2.3u0\n", 42);
+	printf("%-2.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R ->>>\n%-4.3u0\n", 42);
+	printf("%-4.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R ->=>\n%-3.3u0\n", 42);
+	printf("%-3.3u0\n\n", 42);
+	delay();
+	ft_printf("P+R -><>\n%-3.4u0\n", 42);
+	printf("%-3.4u0\n\n", 42);
+	delay();
+}
 
-	homemade = ft_printf("%u %u %u %u %u\n", -2147483648, -1, 0, 1, 2147483647);
-	original = printf("%u %u %u %u %u\n", -2147483648, -1, 0, 1, 2147483647);
+void	test_hex()
+{
 	delay();
-	
-			
 	delay();
-	homemade = ft_printf("remplissage 0\n%0u0\n", 42);
-	original = printf("%0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage <\n%1u0\n", 42);
-	original = printf("%1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage =\n%2u0\n", 42);
-	original = printf("%2u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage >\n%3u0\n", 42);
-	original = printf("%2u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -0\n%-0u0\n", 42);
-	original = printf("%-0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -1\n%-1u0\n", 42);
-	original = printf("%-1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage ->\n%-2u0\n", 42);
-	original = printf("%-2u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *0\n%*u0\n", 0, 42);
-	original = printf("%*u0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *1\n%*u0\n", 1, 42);
-	original = printf("%*u0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *>\n%*u0\n", 2, 42);
-	original = printf("%*u0\n\n", 2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-0\n%*u0\n", -0, 42);
-	original = printf("%*u0\n\n", -0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *-1\n%*u0\n", -1, 42);
-	original = printf("%*u0\n\n", -1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage *->\n%*u0\n", -2, 42);
-	original = printf("%*u0\n\n", -2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*0\n%-*u0\n", 0, 42);
-	original = printf("%-*u0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*1\n%-*u0\n", 1, 42);
-	original = printf("%-*u0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*>\n%-*u0\n", 2, 42);
-	original = printf("%-*u0\n\n", 2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*u0\n", -0, 42);
-	original = printf("%-*u0\n\n", -0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*-1\n%-*u0\n", -1, 42);
-	original = printf("%-*u0\n\n", -1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("remplissage -*->\n%-*u0\n", -2, 42);
-	original = printf("%-*u0\n\n", -2, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision 0\n%.0u0\n", 42);
-	original = printf("%.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision <\n%.1u0\n", 42);
-	original = printf("%.1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision =\n%.11u0\n", 42);
-	original = printf("%.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision >\n%.20u0\n", 42);
-	original = printf("%.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *0\n%.*u0\n", 0, 42);
-	original = printf("%.*u0\n\n", 0, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *<\n%.*u0\n", 1, 42);
-	original = printf("%.*u0\n\n", 1, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *=\n%.*u0\n", 11, 42);
-	original = printf("%.*u0\n\n", 11, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("precision *>\n%.*u0\n", 20, 42);
-	original = printf("%.*u0\n\n", 20, 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0u0\n", 42);
-	original = printf("%0.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1u0\n", 42);
-	original = printf("%0.1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.=\n%0.11u0\n", 42);
-	original = printf("%0.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20u0\n", 42);
-	original = printf("%0.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <.0\n%1.0u0\n", 42);
-	original = printf("%1.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =.0\n%11.0u0\n", 42);
-	original = printf("%11.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >.0\n%20.0u0\n", 42);
-	original = printf("%20.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0u0\n", 42);
-	original = printf("%-0.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0u0\n", 42);
-	original = printf("%-1.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=.0\n%-11.0u0\n", 42);
-	original = printf("%-11.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0u0\n", 42);
-	original = printf("%-20.0u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<<\n%1.2u0\n", 42);
-	original = printf("%1.2u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <><\n%2.1u0\n", 42);
-	original = printf("%2.1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<=\n%5.11u0\n", 42);
-	original = printf("%5.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =><\n%11.5u0\n", 42);
-	original = printf("%11.5u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R <<>\n%5.20u0\n", 42);
-	original = printf("%5.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >><\n%20.5u0\n", 42);
-	original = printf("%20.5u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R =<>\n%11.20u0\n", 42);
-	original = printf("%11.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>=\n%20.11u0\n", 42);
-	original = printf("%20.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ><>\n%15.20u0\n", 42);
-	original = printf("%15.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R >>>\n%20.15u0\n", 42);
-	original = printf("%20.15u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2u0\n", 42);
-	original = printf("%-1.2u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1u0\n", 42);
-	original = printf("%-2.1u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11u0\n", 42);
-	original = printf("%-5.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5u0\n", 42);
-	original = printf("%-11.5u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20u0\n", 42);
-	original = printf("%-5.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5u0\n", 42);
-	original = printf("%-20.5u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20u0\n", 42);
-	original = printf("%-11.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11u0\n", 42);
-	original = printf("%-20.11u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20u0\n", 42);
-	original = printf("%-15.20u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15u0\n", 42);
-	original = printf("%-20.15u0\n\n", 42);
-	delay();
-	
-			
-	delay();
-	delay();
-
-*/
-/*
 	printf("\t\tTests sur les hexa (x & X) :\n\n");
 	delay();
-	
-	homemade = ft_printf("%x %x %x %x %x\n", -2147483647, -1, 0, 1, 2147483647);
-	original = printf("%x %x %x %x %x\n", -2147483647, -1, 0, 1, 2147483647);
 	delay();
-	
-			
-	homemade = ft_printf("%X %X %X %X %X\n", -2147483647, -1, 0, 1, 2147483647);
-	original = printf("%X %X %X %X %X\n", -2147483647, -1, 0, 1, 2147483647);
+	ft_printf("%x %x %x %x %x\n", -2147483647, -1, 0, 1, 2147483647);
+	printf("%x %x %x %x %x\n\n", -2147483647, -1, 0, 1, 2147483647);
 	delay();
-	
-			
-	homemade = ft_printf("remplissage 0\n%0x0\n", 42);
-	original = printf("%0x0\n\n", 42);
+	ft_printf("%X %X %X %X %X\n", -2147483647, -1, 0, 1, 2147483647);
+	printf("%X %X %X %X %X\n\n", -2147483647, -1, 0, 1, 2147483647);
 	delay();
-	
-			
+	ft_printf("remplissage 0\n%0x0\n", 42);
+	printf("%0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage <\n%1x0\n", 42);
-	original = printf("%1x0\n\n", 42);
+	ft_printf("remplissage <\n%1x0\n", 42);
+	printf("%1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage =\n%2x0\n", 42);
+	printf("%2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage =\n%2x0\n", 42);
-	original = printf("%2x0\n\n", 42);
+	ft_printf("remplissage >\n%3x0\n", 42);
+	printf("%3x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -0\n%-0x0\n", 42);
+	printf("%-0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage >\n%3x0\n", 42);
-	original = printf("%2x0\n\n", 42);
+	ft_printf("remplissage -1\n%-1x0\n", 42);
+	printf("%-1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage ->\n%-2x0\n", 42);
+	printf("%-2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage -0\n%-0x0\n", 42);
-	original = printf("%-0x0\n\n", 42);
+	ft_printf("remplissage *0\n%*x0\n", 0, 42);
+	printf("%*x0\n\n", 0, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *1\n%*x0\n", 1, 42);
+	printf("%*x0\n\n", 1, 42);		
 	delay();
-	homemade = ft_printf("remplissage -1\n%-1x0\n", 42);
-	original = printf("%-1x0\n\n", 42);
+	ft_printf("remplissage *>\n%*x0\n", 2, 42);
+	printf("%*x0\n\n", 2, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *-0\n%*x0\n", -0, 42);
+	printf("%*x0\n\n", -0, 42);		
 	delay();
-	homemade = ft_printf("remplissage ->\n%-2x0\n", 42);
-	original = printf("%-2x0\n\n", 42);
+	ft_printf("remplissage *-<\n%*x0\n", -1, 42);
+	printf("%*x0\n\n", -1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *-=\n%*x0\n", -2, 42);
+	printf("%*x0\n\n", -2, 42);
 	delay();
-	homemade = ft_printf("remplissage *0\n%*x0\n", 0, 42);
-	original = printf("%*x0\n\n", 0, 42);
+	ft_printf("remplissage *->\n%*x0\n", -2, 42);
+	printf("%*x0\n\n", -2, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*0\n%-*x0\n", 0, 42);
+	printf("%-*x0\n\n", 0, 42);		
 	delay();
-	homemade = ft_printf("remplissage *1\n%*x0\n", 1, 42);
-	original = printf("%*x0\n\n", 1, 42);
+	ft_printf("remplissage -*<\n%-*x0\n", 1, 42);
+	printf("%-*x0\n\n", 1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*=\n%-*x0\n", 2, 42);
+	printf("%-*x0\n\n", 2, 42);		
 	delay();
-	homemade = ft_printf("remplissage *>\n%*x0\n", 2, 42);
-	original = printf("%*x0\n\n", 2, 42);
+	ft_printf("remplissage -*>\n%-*x0\n", 3, 42);
+	printf("%-*x0\n\n", 3, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*-0\n%-*x0\n", -0, 42);
+	printf("%-*x0\n\n", -0, 42);		
 	delay();
-	homemade = ft_printf("remplissage *-0\n%*x0\n", -0, 42);
-	original = printf("%*x0\n\n", -0, 42);
+	ft_printf("remplissage -*-<\n%-*x0\n", -1, 42);
+	printf("%-*x0\n\n", -1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*-=\n%-*x0\n", -2, 42);
+	printf("%-*x0\n\n", -2, 42);			
 	delay();
-	homemade = ft_printf("remplissage *-1\n%*x0\n", -1, 42);
-	original = printf("%*x0\n\n", -1, 42);
+	ft_printf("remplissage -*->\n%-*x0\n", -3, 42);
+	printf("%-*x0\n\n", -3, 42);		
 	delay();
-	
-			
+	ft_printf("precision 0\n%.0x0\n", 42);
+	printf("%.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage *->\n%*x0\n", -2, 42);
-	original = printf("%*x0\n\n", -2, 42);
+	ft_printf("precision <\n%.1x0\n", 42);
+	printf("%.1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("precision =\n%.2x0\n", 42);
+	printf("%.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage -*0\n%-*x0\n", 0, 42);
-	original = printf("%-*x0\n\n", 0, 42);
+	ft_printf("precision >\n%.20x0\n", 42);
+	printf("%.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("precision *0\n%.*x0\n", 0, 42);
+	printf("%.*x0\n\n", 0, 42);		
 	delay();
-	homemade = ft_printf("remplissage -*1\n%-*x0\n", 1, 42);
-	original = printf("%-*x0\n\n", 1, 42);
+	ft_printf("precision *<\n%.*x0\n", 1, 42);
+	printf("%.*x0\n\n", 1, 42);		
 	delay();
-	
-			
+	ft_printf("precision *=\n%.*x0\n", 2, 42);
+	printf("%.*x0\n\n", 2, 42);		
 	delay();
-	homemade = ft_printf("remplissage -*>\n%-*x0\n", 2, 42);
-	original = printf("%-*x0\n\n", 2, 42);
+	ft_printf("precision *>\n%.*x0\n", 20, 42);
+	printf("%.*x0\n\n", 20, 42);		
 	delay();
-	
-			
+	ft_printf("P+R 0.0\n%0.0x0\n", 42);
+	printf("%0.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage -*-0\n%-*x0\n", -0, 42);
-	original = printf("%-*x0\n\n", -0, 42);
+	ft_printf("P+R 0.<\n%0.1x0\n", 42);
+	printf("%0.1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R 0.=\n%0.2x0\n", 42);
+	printf("%0.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage -*-1\n%-*x0\n", -1, 42);
-	original = printf("%-*x0\n\n", -1, 42);
+	ft_printf("P+R 0.>\n%0.20x0\n", 42);
+	printf("%0.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R <.0\n%1.0x0\n", 42);
+	printf("%1.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("remplissage -*->\n%-*x0\n", -2, 42);
-	original = printf("%-*x0\n\n", -2, 42);
+	ft_printf("P+R =.0\n%2.0x0\n", 42);
+	printf("%2.0x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >.0\n%20.0x0\n", 42);
+	printf("%20.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision 0\n%.0x0\n", 42);
-	original = printf("%.0x0\n\n", 42);
+	ft_printf("P+R -0.0\n%-0.0x0\n", 42);
+	printf("%-0.0x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R -<.0\n%-1.0x0\n", 42);
+	printf("%-1.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision <\n%.1x0\n", 42);
-	original = printf("%.1x0\n\n", 42);
+	ft_printf("P+R -=.0\n%-2.0x0\n", 42);
+	printf("%-2.0x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ->.0\n%-20.0x0\n", 42);
+	printf("%-20.0x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision =\n%.11x0\n", 42);
-	original = printf("%.11x0\n\n", 42);
+	ft_printf("P+R <=<\n%1.1x0\n", 42);
+	printf("%1.1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R =><\n%2.1x0\n", 42);
+	printf("%2.1x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision >\n%.20x0\n", 42);
-	original = printf("%.20x0\n\n", 42);
+	ft_printf("P+R <<=\n%1.2x0\n", 42);
+	printf("%1.2x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ===\n%2.2x0\n", 42);
+	printf("%2.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision *0\n%.*x0\n", 0, 42);
-	original = printf("%.*x0\n\n", 0, 42);
+	ft_printf("P+R <<>\n%1.20x0\n", 42);
+	printf("%1.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >><\n%20.1x0\n", 42);
+	printf("%20.1x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision *<\n%.*x0\n", 1, 42);
-	original = printf("%.*x0\n\n", 1, 42);
+	ft_printf("P+R =<>\n%2.20x0\n", 42);
+	printf("%2.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >>=\n%20.2x0\n", 42);
+	printf("%20.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision *=\n%.*x0\n", 11, 42);
-	original = printf("%.*x0\n\n", 11, 42);
+	ft_printf("P+R ><>\n%15.20x0\n", 42);
+	printf("%15.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >>>\n%20.15x0\n", 42);
+	printf("%20.15x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("precision *>\n%.*x0\n", 20, 42);
-	original = printf("%.*x0\n\n", 20, 42);
+	ft_printf("P+R -<=<\n%-1.1x0\n", 42);
+	printf("%-1.1x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R -=><\n%-2.1x0\n", 42);
+	printf("%-2.1x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R 0.0\n%0.0x0\n", 42);
-	original = printf("%0.0x0\n\n", 42);
+	ft_printf("P+R -<<=\n%-1.2x0\n", 42);
+	printf("%-1.2x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R -===\n%-2.2x0\n", 42);
+	printf("%-2.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R 0.<\n%0.1x0\n", 42);
-	original = printf("%0.1x0\n\n", 42);
+	ft_printf("P+R -<<>\n%-1.20x0\n", 42);
+	printf("%-1.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ->><\n%-20.1x0\n", 42);
+	printf("%-20.1x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R 0.=\n%0.11x0\n", 42);
-	original = printf("%0.11x0\n\n", 42);
+	ft_printf("P+R -=<>\n%-2.20x0\n", 42);
+	printf("%-2.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ->>=\n%-20.2x0\n", 42);
+	printf("%-20.2x0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R 0.>\n%0.20x0\n", 42);
-	original = printf("%0.20x0\n\n", 42);
+	ft_printf("P+R -><>\n%-15.20x0\n", 42);
+	printf("%-15.20x0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ->>>\n%-20.15x0\n", 42);
+	printf("%-20.15x0\n\n", 42);
+
+
+
+	ft_printf("remplissage 0\n%0X0\n", 42);
+	printf("%0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R <.0\n%1.0x0\n", 42);
-	original = printf("%1.0x0\n\n", 42);
+	ft_printf("remplissage <\n%1X0\n", 42);
+	printf("%1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage =\n%2X0\n", 42);
+	printf("%2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R =.0\n%11.0x0\n", 42);
-	original = printf("%11.0x0\n\n", 42);
+	ft_printf("remplissage >\n%3X0\n", 42);
+	printf("%3X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -0\n%-0X0\n", 42);
+	printf("%-0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R >.0\n%20.0x0\n", 42);
-	original = printf("%20.0x0\n\n", 42);
+	ft_printf("remplissage -1\n%-1X0\n", 42);
+	printf("%-1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("remplissage ->\n%-2X0\n", 42);
+	printf("%-2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -0.0\n%-0.0x0\n", 42);
-	original = printf("%-0.0x0\n\n", 42);
+	ft_printf("remplissage *0\n%*X0\n", 0, 42);
+	printf("%*X0\n\n", 0, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *1\n%*X0\n", 1, 42);
+	printf("%*X0\n\n", 1, 42);		
 	delay();
-	homemade = ft_printf("P+R -<.0\n%-1.0x0\n", 42);
-	original = printf("%-1.0x0\n\n", 42);
+	ft_printf("remplissage *>\n%*X0\n", 2, 42);
+	printf("%*X0\n\n", 2, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *-0\n%*X0\n", -0, 42);
+	printf("%*X0\n\n", -0, 42);		
 	delay();
-	homemade = ft_printf("P+R -=.0\n%-11.0x0\n", 42);
-	original = printf("%-11.0x0\n\n", 42);
+	ft_printf("remplissage *-<\n%*X0\n", -1, 42);
+	printf("%*X0\n\n", -1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage *-=\n%*X0\n", -2, 42);
+	printf("%*X0\n\n", -2, 42);
 	delay();
-	homemade = ft_printf("P+R ->.0\n%-20.0x0\n", 42);
-	original = printf("%-20.0x0\n\n", 42);
+	ft_printf("remplissage *->\n%*X0\n", -2, 42);
+	printf("%*X0\n\n", -2, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*0\n%-*X0\n", 0, 42);
+	printf("%-*X0\n\n", 0, 42);		
 	delay();
-	homemade = ft_printf("P+R <<<\n%1.2x0\n", 42);
-	original = printf("%1.2x0\n\n", 42);
+	ft_printf("remplissage -*<\n%-*X0\n", 1, 42);
+	printf("%-*X0\n\n", 1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*=\n%-*X0\n", 2, 42);
+	printf("%-*X0\n\n", 2, 42);		
 	delay();
-	homemade = ft_printf("P+R <><\n%2.1x0\n", 42);
-	original = printf("%2.1x0\n\n", 42);
+	ft_printf("remplissage -*>\n%-*X0\n", 3, 42);
+	printf("%-*X0\n\n", 3, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*-0\n%-*X0\n", -0, 42);
+	printf("%-*X0\n\n", -0, 42);		
 	delay();
-	homemade = ft_printf("P+R <<=\n%5.11x0\n", 42);
-	original = printf("%5.11x0\n\n", 42);
+	ft_printf("remplissage -*-<\n%-*X0\n", -1, 42);
+	printf("%-*X0\n\n", -1, 42);		
 	delay();
-	
-			
+	ft_printf("remplissage -*-=\n%-*X0\n", -2, 42);
+	printf("%-*X0\n\n", -2, 42);		
 	delay();
-	homemade = ft_printf("P+R =><\n%11.5x0\n", 42);
-	original = printf("%11.5x0\n\n", 42);
+	ft_printf("remplissage -*->\n%-*X0\n", -3, 42);
+	printf("%-*X0\n\n", -3, 42);		
 	delay();
-	
-			
+	ft_printf("precision 0\n%.0X0\n", 42);
+	printf("%.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R <<>\n%5.20x0\n", 42);
-	original = printf("%5.20x0\n\n", 42);
+	ft_printf("precision <\n%.1X0\n", 42);
+	printf("%.1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("precision =\n%.2X0\n", 42);
+	printf("%.2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R >><\n%20.5x0\n", 42);
-	original = printf("%20.5x0\n\n", 42);
+	ft_printf("precision >\n%.20X0\n", 42);
+	printf("%.20X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("precision *0\n%.*X0\n", 0, 42);
+	printf("%.*X0\n\n", 0, 42);		
 	delay();
-	homemade = ft_printf("P+R =<>\n%11.20x0\n", 42);
-	original = printf("%11.20x0\n\n", 42);
+	ft_printf("precision *<\n%.*X0\n", 1, 42);
+	printf("%.*X0\n\n", 1, 42);		
 	delay();
-	
-			
+	ft_printf("precision *=\n%.*X0\n", 2, 42);
+	printf("%.*X0\n\n", 2, 42);		
 	delay();
-	homemade = ft_printf("P+R >>=\n%20.11x0\n", 42);
-	original = printf("%20.11x0\n\n", 42);
+	ft_printf("precision *>\n%.*X0\n", 20, 42);
+	printf("%.*X0\n\n", 20, 42);		
 	delay();
-	
-			
+	ft_printf("P+R 0.0\n%0.0X0\n", 42);
+	printf("%0.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R ><>\n%15.20x0\n", 42);
-	original = printf("%15.20x0\n\n", 42);
+	ft_printf("P+R 0.<\n%0.1X0\n", 42);
+	printf("%0.1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R 0.=\n%0.2X0\n", 42);
+	printf("%0.2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R >>>\n%20.15x0\n", 42);
-	original = printf("%20.15x0\n\n", 42);
+	ft_printf("P+R 0.>\n%0.20X0\n", 42);
+	printf("%0.20X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R <.0\n%1.0X0\n", 42);
+	printf("%1.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -<<<\n%-1.2x0\n", 42);
-	original = printf("%-1.2x0\n\n", 42);
+	ft_printf("P+R =.0\n%2.0X0\n", 42);
+	printf("%2.0X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >.0\n%20.0X0\n", 42);
+	printf("%20.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -<><\n%-2.1x0\n", 42);
-	original = printf("%-2.1x0\n\n", 42);
+	ft_printf("P+R -0.0\n%-0.0X0\n", 42);
+	printf("%-0.0X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R -<.0\n%-1.0X0\n", 42);
+	printf("%-1.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -<<=\n%-5.11x0\n", 42);
-	original = printf("%-5.11x0\n\n", 42);
+	ft_printf("P+R -=.0\n%-2.0X0\n", 42);
+	printf("%-2.0X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ->.0\n%-20.0X0\n", 42);
+	printf("%-20.0X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -=><\n%-11.5x0\n", 42);
-	original = printf("%-11.5x0\n\n", 42);
+	ft_printf("P+R <=<\n%1.1X0\n", 42);
+	printf("%1.1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R =><\n%2.1X0\n", 42);
+	printf("%2.1X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -<<>\n%-5.20x0\n", 42);
-	original = printf("%-5.20x0\n\n", 42);
+	ft_printf("P+R <<=\n%1.2X0\n", 42);
+	printf("%1.2X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R ===\n%2.2X0\n", 42);
+	printf("%2.2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R ->><\n%-20.5x0\n", 42);
-	original = printf("%-20.5x0\n\n", 42);
+	ft_printf("P+R <<>\n%1.20X0\n", 42);
+	printf("%1.20X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >><\n%20.1X0\n", 42);
+	printf("%20.1X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -=<>\n%-11.20x0\n", 42);
-	original = printf("%-11.20x0\n\n", 42);
+	ft_printf("P+R =<>\n%2.20X0\n", 42);
+	printf("%2.20X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >>=\n%20.2X0\n", 42);
+	printf("%20.2X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R ->>=\n%-20.11x0\n", 42);
-	original = printf("%-20.11x0\n\n", 42);
+	ft_printf("P+R ><>\n%15.20X0\n", 42);
+	printf("%15.20X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R >>>\n%20.15X0\n", 42);
+	printf("%20.15X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R -><>\n%-15.20x0\n", 42);
-	original = printf("%-15.20x0\n\n", 42);
+	ft_printf("P+R -<=<\n%-1.1X0\n", 42);
+	printf("%-1.1X0\n\n", 42);		
 	delay();
-	
-			
+	ft_printf("P+R -=><\n%-2.1X0\n", 42);
+	printf("%-2.1X0\n\n", 42);		
 	delay();
-	homemade = ft_printf("P+R ->>>\n%-20.15x0\n", 42);
-	original = printf("%-20.15x0\n\n", 42);
+	ft_printf("P+R -<<=\n%-1.2X0\n", 42);
+	printf("%-1.2X0\n\n", 42);
 	delay();
-*/
+	ft_printf("P+R -===\n%-2.2X0\n", 42);
+	printf("%-2.2X0\n\n", 42);
+	delay();
+	ft_printf("P+R -<<>\n%-1.20X0\n", 42);
+	printf("%-1.20X0\n\n", 42);
+	delay();
+	ft_printf("P+R ->><\n%-20.1X0\n", 42);
+	printf("%-20.1X0\n\n", 42);
+	delay();
+	ft_printf("P+R -=<>\n%-2.20X0\n", 42);
+	printf("%-2.20X0\n\n", 42);
+	delay();
+	ft_printf("P+R ->>=\n%-20.2X0\n", 42);
+	printf("%-20.2X0\n\n", 42);
+	delay();
+	ft_printf("P+R -><>\n%-15.20X0\n", 42);
+	printf("%-15.20X0\n\n", 42);
+	delay();
+	ft_printf("P+R ->>>\n%-20.15X0\n", 42);
+	printf("%-20.15X0\n\n", 42);
 }

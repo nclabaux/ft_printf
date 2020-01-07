@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:56:57 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/13 15:31:47 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:59:36 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	character(va_list *aap, int i, t_flag *aflags, int *result)
 {
-	int	padding;
 	int	j;
 
 	j = 0;
-	padding = (*aflags).padding;
 	if ((*aflags).position == 1)
 	{
-		while (j < padding - 1)
+		while (j < (*aflags).padding - 1)
 		{
 			ft_putchar_fd(' ', 1);
 			j++;
@@ -32,7 +30,7 @@ int	character(va_list *aap, int i, t_flag *aflags, int *result)
 	(*result)++;
 	if ((*aflags).position == -1)
 	{
-		while (j < padding - 1)
+		while (j < (*aflags).padding - 1)
 		{
 			ft_putchar_fd(' ', 1);
 			j++;
