@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 16:01:04 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/11/22 15:18:25 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:41:06 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	*cut(char *str, int *negative);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
-char	*ft_nbr_base(unsigned int nbr, char *base);
+char	*ft_nbr_base(unsigned long nbr, char *base);
 char	*ft_nbr_base2(int *tab, int size, char *base);
 int		ft_atoi_base(char *str, char *base, int *base_ok);
 int		is_in_index(char c, char *base, int *index);

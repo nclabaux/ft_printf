@@ -6,49 +6,36 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:56:57 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/01/06 19:02:58 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:18:17 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	integer(va_list *aap, int i, t_flag *aflags, int *result)
+int	integer(va_list *aap, int i, t_flag *afl, int *g_res)
 {
 	int	j;
 	int	x;
 
-	j = -1;
+	j = 0;
 	x = va_arg(*aap, int);
-	if ((*aflags).position == 1)
+	if ((*afl).position == 1)
 	{
-		while (++j < (*aflags).padding - ft_max((*aflags).precision, digit_number(x)))
-		{
-			ft_putchar_fd(' ', 1);
-			(*result)++;
-		}
+		while (j++ < (*afl).padding - ft_max((*afl).prec, digit_nbr(x)))
+			ft_putspace(g_res);
 	}
 	j = 0;
-	while (j < (*aflags).precision - digit_number(x))
+	while (j < (*afl).prec - digit_nbr(x))
 	{
-		ft_putchar_fd('0', 1);
+		ft_putzero(g_res);
 		j++;
-		(*result)++;
 	}
 	ft_putnbr_fd(x, 1);
-	if ((*aflags).position == -1)
+	(*g_res) += digit_nbr(x);
+	if ((*afl).position == -1)
 	{
-		while (j < (*aflags).padding - digit_number(x))
-		{
-			ft_putchar_fd(' ', 1);
-			j++;
-			(*result)++;
-		}
+		while (j++ < (*afl).padding - digit_nbr(x))
+			ft_putspace(g_res);
 	}
 	return (i + 1);
-}
-
-void	ft_putspace(int *result)
-{
-	ft_putchar_fd(' ', 1);
-	(*result)++;
 }

@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:43:07 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/11/22 15:18:10 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:41:19 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long	is_negative(long x, int *negat)
 	return (x);
 }
 
-char	*ft_nbr_base(unsigned int nbr, char *base)
+char	*ft_nbr_base(unsigned long nbr, char *base)
 {
 	int	size;
 	int	i;

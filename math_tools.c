@@ -5,24 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 14:50:28 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/14 17:00:35 by nclabaux         ###   ########.fr       */
+/*   Created: 2020/01/11 15:33:19 by nclabaux          #+#    #+#             */
+/*   Updated: 2020/01/11 15:33:40 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		digit_number(int x)
+int		digit_nbr(int x)
 {
 	int	i;
 
 	if (!x)
-		return(1);
+		return (1);
 	i = 0;
 	while (x)
 	{
 		i++;
 		x = x / 10;
+	}
+	return (i);
+}
+
+int		digit_nbr_hex(long long x)
+{
+	int	i;
+
+	if (!x)
+		return (1);
+	i = 0;
+	while (x)
+	{
+		i++;
+		x = x / 16;
 	}
 	return (i);
 }

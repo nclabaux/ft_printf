@@ -6,43 +6,35 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 15:49:50 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/01/06 16:25:17 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/10 13:01:12 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	max_hexa(va_list *aap, int i, t_flag *aflags, int *result)
+int	max_hexa(va_list *aap, int i, t_flag *afl, int *g_res)
 {
 	int				j;
 	unsigned int	x;
 
-	j = 0;
+	j = -1;
 	x = va_arg(*aap, unsigned int);
-	if ((*aflags).position == 1)
+	if ((*afl).position == 1)
 	{
-		while (j < (*aflags).padding - ft_max((*aflags).precision, digit_number(x)))
-		{
-			ft_putchar_fd(' ', 1);
-			j++;
-			(*result)++;
-		}
+		while (++j < (*afl).padding - ft_max((*afl).prec, digit_nbr_hex(x)))
+			ft_putspace(g_res);
 	}
-	j = 0;
-	while (j < (*aflags).precision - digit_number(x))
-	{
-		ft_putchar_fd('0', 1);
-		j++;
-		(*result)++;
-	}
+	j = -1;
+	while (++j < (*afl).prec - digit_nbr_hex(x))
+		ft_putzero(g_res);
 	ft_putstr_fd(ft_nbr_base(x, "0123456789ABCDEF"), 1);
-	if ((*aflags).position == -1)
+	(*g_res) += digit_nbr_hex(x);
+	if ((*afl).position == -1)
 	{
-		while (j < (*aflags).padding - digit_number(x))
+		while (j < (*afl).padding - digit_nbr_hex(x))
 		{
-			ft_putchar_fd(' ', 1);
+			ft_putspace(g_res);
 			j++;
-			(*result)++;
 		}
 	}
 	return (i + 1);

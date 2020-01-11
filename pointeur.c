@@ -6,47 +6,36 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:56:57 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/12/13 14:27:54 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:44:51 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	pointeur(va_list *aap, int i, t_flag *aflags, int *result)
+int	pointeur(va_list *aap, int i, t_flag *afl, int *g_res)
 {
-	int					j;
-	long unsigned int	x;
+	int			j;
+	long long	x;
 
-	j = 0;
-	x = va_arg(*aap, long unsigned int);
-	if ((*aflags).position == 1)
+	j = 2;
+	x = va_arg(*aap, long long);
+	if ((*afl).position == 1)
 	{
-		while (j < (*aflags).padding - (*aflags).precision - digit_number(x))
+		while (j < (*afl).padding - digit_nbr_hex(x))
 		{
-			ft_putchar_fd(' ', 1);
-			i++;
+			ft_putspace(g_res);
 			j++;
-			(*result)++;
 		}
-	}
-	while (j < (*aflags).position - digit_number(x) - 1)
-	{
-		ft_putchar_fd('0', 1);
-		i++;
-		j++;
-		(*result)++;
 	}
 	ft_putstr_fd("0x", 1);
 	ft_putstr_fd(ft_nbr_base(x, "0123456789abcdef"), 1);
-	i += digit_number(x);
-	if ((*aflags).position == -1)
+	(*g_res) += digit_nbr_hex(x) + 2;
+	if ((*afl).position == -1)
 	{
-		while (j < (*aflags).padding - (*aflags).precision - digit_number(x))
+		while (j < (*afl).padding - digit_nbr_hex(x))
 		{
-			ft_putchar_fd(' ', 1);
-			i++;
+			ft_putspace(g_res);
 			j++;
-			(*result)++;
 		}
 	}
 	return (i + 1);
