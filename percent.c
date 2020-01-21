@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   min_hexa.c                                         :+:      :+:    :+:   */
+/*   percent.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 15:49:50 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/01/10 13:01:12 by nclabaux         ###   ########.fr       */
+/*   Created: 2020/01/14 13:48:01 by nclabaux          #+#    #+#             */
+/*   Updated: 2020/01/21 17:50:50 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	max_hexa(va_list *aap, int i, t_flag *afl, int *g_res)
+int	ft_percent(int i, t_flag *afl, int *g_res)
 {
-	int				j;
-	unsigned int	x;
-
-	j = -1;
-	x = va_arg(*aap, unsigned int);
 	if ((*afl).position == 1)
-	{
-		while (++j < (*afl).padding - ft_max((*afl).prec, digit_nbr_hex(x)))
-			ft_putspace(g_res);
-	}
-	j = -1;
-	while (++j < (*afl).prec - digit_nbr_hex(x))
-		ft_putzero(g_res);
-	ft_putstr_fd(ft_nbr_base(x, "0123456789ABCDEF"), 1);
-	(*g_res) += digit_nbr_hex(x);
+		ft_padding_pct(g_res, afl);
+	ft_putchar_cpt('%', g_res);
 	if ((*afl).position == -1)
-	{
-		while (j < (*afl).padding - digit_nbr_hex(x))
-		{
-			ft_putspace(g_res);
-			j++;
-		}
-	}
+		ft_padding_pct(g_res, afl);
 	return (i + 1);
+}
+
+void	ft_padding_pct(int *g_res, t_flag *afl)
+{
+	int	j;
+
+	j = 0;
+	while (j < (*afl).pad - 1)
+	{
+		ft_putchar_cpt((*afl).filler, g_res);
+		j++;
+	}
 }
