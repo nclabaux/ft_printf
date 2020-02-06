@@ -6,20 +6,19 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 15:29:48 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/01/21 18:05:40 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/02/06 21:44:41 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		g_res;
-
 int		ft_printf(const char *str, ...)
 {
 	va_list	ap;
 	int		i;
+	int		result;
 
-	g_res = 0;
+	result = 0;
 	va_start(ap, str);
 	i = 0;
 	while (str[i])
@@ -28,35 +27,24 @@ int		ft_printf(const char *str, ...)
 		{
 			ft_putchar_fd(str[i], 1);
 			i++;
-			g_res++;
+			result++;
 		}
 		if (str[i] == '%')
 		{
-			i = ft_flag_rd(&ap, str, i + 1);
+			i = ft_flag_rd(&ap, str, i + 1, &result);
 		}
 	}
 	va_end(ap);
-	return (g_res);
+	return (result);
 }
 
-int		ft_flag_rd(va_list *aap, const char *str, int i)
+int		ft_flag_rd(va_list *aap, const char *str, int i, int *result)
 {
 	t_flag	flags;
 
 	ft_flag_init(&flags);
-	while (str[i] == '-' || str[i] == '+' || str[i] == '0')
-	{
-		if (str[i] == '-')
-		{
-			flags.position = -1;
-			flags.filler = ' ';
-		}
-		if (str[i] == '+')
-			flags.plus = 1;
-		if (str[i] == '0' && flags.position == 1)
-			flags.filler = '0';
-		i++;
-	}
+	while (str[i] && (str[i] == '-' || str[i] == '+' || str[i] == '0'))
+		i = ft_begin_rd(i, &flags, str);
 	if (ft_isdigit(str[i]))
 	{
 		flags.pad = ft_atoi(str + i);
@@ -74,46 +62,45 @@ int		ft_flag_rd(va_list *aap, const char *str, int i)
 		i++;
 	}
 	if (str[i] == '.')
-	{
 		i = ft_prec_rd(aap, &flags, i + 1, str);
-		flags.filler = ' ';
-	}
-	i = ft_arg_rd(aap, str, i, &flags);
-	return (i);
+	return (i + ft_arg_rd(aap, (char *)str + i, &flags, result));
 }
 
-int		ft_arg_rd(va_list *aap, const char *str, int i, t_flag *afl)
+int		ft_arg_rd(va_list *aap, char *str_i, t_flag *afl, int *result)
 {
-	if (str[i] == 'c')
-		i = ft_character(aap, i, afl, &g_res);
-	else if (str[i] == 's')
-		i = ft_string(aap, i, afl, &g_res);
-	else if (str[i] == 'd' || str[i] == 'i')
-		i = ft_integer(aap, i, afl, &g_res);
-	else if (str[i] == 'u')
-		i = ft_unsigned_int(aap, i, afl, &g_res);
-	else if (str[i] == 'p')
-		i = ft_pointeur(aap, i, afl, &g_res);
-	else if (str[i] == 'x' || str[i] == 'X')
-		i = ft_hexa(aap, i, afl, &g_res, (char*)str);
-	else if (str[i] == '%')
-		i = ft_percent(i, afl, &g_res);
-	return (i);
+	if (*str_i == 'c')
+		ft_character(aap, afl, result);
+	else if (*str_i == 's')
+		ft_string(aap, afl, result);
+	else if (*str_i == 'd' || *str_i == 'i')
+		ft_integer(aap, afl, result);
+	else if (*str_i == 'u')
+		ft_unsigned_int(aap, afl, result);
+	else if (*str_i == 'p')
+		ft_pointeur(aap, afl, result);
+	else if (*str_i == 'x')
+		ft_hex(aap, afl, result, "0123456789abcdef");
+	else if (*str_i == 'X')
+		ft_hex(aap, afl, result, "0123456789ABCDEF");
+	else if (*str_i == '%')
+		ft_percent(afl, result);
+	else
+		return (0);
+	return (1);
 }
 
 void	ft_flag_init(t_flag *afl)
 {
-	(*afl).plus = 0;
 	(*afl).pad = 0;
 	(*afl).prec = 0;
 	(*afl).position = 1;
-	(*afl).modified = 0;
+	(*afl).modif = 0;
 	(*afl).filler = ' ';
 }
 
 int		ft_prec_rd(va_list *aap, t_flag *afl, int i, const char *str)
 {
-	(*afl).modified = 1;
+	(*afl).modif = 1;
 	while (str[i] == '0')
 		i++;
 	if (ft_isdigit(str[i]))
@@ -127,6 +114,10 @@ int		ft_prec_rd(va_list *aap, t_flag *afl, int i, const char *str)
 		i++;
 	}
 	if ((*afl).prec < 0)
-		(*afl).modified = 0;
+		(*afl).modif = 0;
+	else if (str[i] == '%')
+		return (i);
+	else
+		(*afl).filler = ' ';
 	return (i);
 }

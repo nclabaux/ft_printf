@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   character.c                                        :+:      :+:    :+:   */
+/*   ft_begin_rd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 12:58:11 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/02/06 22:21:32 by nclabaux         ###   ########.fr       */
+/*   Created: 2020/01/30 22:38:36 by nclabaux          #+#    #+#             */
+/*   Updated: 2020/01/30 22:38:39 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_character(va_list *aap, t_flag *afl, int *result)
+int	ft_begin_rd(int i, t_flag *afl, const char *str)
 {
-	unsigned char	c;
-
-	c = (unsigned char)va_arg(*aap, int);
-	if ((*afl).position == 1)
-		ft_padding_char(result, afl);
-	ft_putchar_cpt(c, result);
-	if ((*afl).position == -1)
-		ft_padding_char(result, afl);
-}
-
-void	ft_padding_char(int *result, t_flag *afl)
-{
-	int j;
-
-	j = 0;
-	while (j < (*afl).pad - 1)
+	if (str[i] == '-')
 	{
-		ft_putchar_cpt((*afl).filler, result);
-		j++;
+		(*afl).position = -1;
+		(*afl).filler = ' ';
 	}
+	if (str[i] == '0' && (*afl).position == 1)
+		(*afl).filler = '0';
+	i++;
+	return (i);
 }
