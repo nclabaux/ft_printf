@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 11:57:29 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/11/22 15:49:44 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/30 22:35:53 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "ft_convert_base/ft_convert_base.h"
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -25,6 +24,8 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *s);
+int					ft_digit_nbr(int x);
+int					ft_dgt_nbr_hex(long long x);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -32,6 +33,8 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int					ft_min(int x, int y);
+int					ft_max(int x, int y);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -49,9 +52,19 @@ char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
+void				ft_putchar_cpt(char c, int *g_res);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+char				*cut(char *str, int *negative);
+char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
+char				*ft_nbr_base(unsigned long nbr, char *base);
+char				*ft_nbr_base2(int *tab, int size, char *base);
+int					ft_atoi_base(char *str, char *base, int *base_ok);
+int					is_in_index(char c, char *base, int *index);
+int					check_base(char *base, int *base_size);
+long				is_negative(long x, int *i);
+void				ft_putchar(char c);
 
 typedef struct		s_list
 {

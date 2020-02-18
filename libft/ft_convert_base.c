@@ -6,9 +6,11 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:38:13 by nclabaux          #+#    #+#             */
-/*   Updated: 2019/11/22 14:06:06 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/30 22:34:57 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*cut(char *str, int *negative)
 {
@@ -47,7 +49,7 @@ int		is_in_index(char c, char *base, int *index)
 	return (0);
 }
 
-int		is_ok(char *base, int *base_size)
+int		check_base(char *base, int *base_size)
 {
 	int size;
 	int i;
@@ -86,7 +88,7 @@ int		ft_atoi_base(char *str, char *base, int *base_ok)
 
 	str = cut(str, &negative);
 	res = 0;
-	if (is_ok(base, &base_size))
+	if (check_base(base, &base_size))
 	{
 		*base_ok = 1;
 		i = 0;

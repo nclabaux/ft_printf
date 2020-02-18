@@ -6,7 +6,7 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:40:02 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/02/06 22:22:19 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:57:41 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ void	ft_pointeur(va_list *aap, t_flag *afl, int *result)
 void	ft_padding_pnt(int *result, t_flag *afl, long long x)
 {
 	int	j;
+	int	zero;
 	int	size;
 
 	j = 0;
-	size = ft_dgt_nbr_hex(x);
+	zero = 0;
+	if (!x && (*afl).modif)
+		zero = 1;
+	size = ft_dgt_nbr_hex(x) - zero;
 	while (j < (*afl).pad - ft_max(size, (*afl).prec) - 2)
 	{
 		ft_putchar_cpt((*afl).filler, result);

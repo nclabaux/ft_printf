@@ -6,11 +6,25 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 14:56:57 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/02/06 22:22:12 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/02/18 00:36:14 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	ft_minint(t_flag *afl, int *result)
+{
+	if ((*afl).position == 1 && (*afl).filler == ' ')
+		ft_padding_int(result, afl, -2147483647, 1);
+	ft_putchar_cpt('-', result);
+	if ((*afl).position == 1 && (*afl).filler == '0')
+		ft_padding_int(result, afl, -2147483647, 1);
+	ft_precision_int(result, afl, -2147483647);
+	ft_putstr_fd("2147483648", 1);
+	(*result) += 10;
+	if ((*afl).position == -1)
+		ft_padding_int(result, afl, -2147483647, 1);
+}
 
 void	ft_integer(va_list *aap, t_flag *afl, int *result)
 {
@@ -18,6 +32,8 @@ void	ft_integer(va_list *aap, t_flag *afl, int *result)
 	int		neg;
 
 	x = va_arg(*aap, int);
+	if (x == -2147483648)
+		return (ft_minint(afl, result));
 	neg = 0;
 	if (x < 0)
 	{

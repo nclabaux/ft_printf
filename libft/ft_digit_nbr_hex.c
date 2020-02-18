@@ -1,56 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_digit_nbr_hex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/25 18:12:35 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/02/17 23:52:10 by nclabaux         ###   ########.fr       */
+/*   Created: 2020/01/30 22:20:48 by nclabaux          #+#    #+#             */
+/*   Updated: 2020/01/31 00:33:19 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	zero(int fd)
+int		ft_dgt_nbr_hex(long long x)
 {
-	write(fd, "0", 1);
-}
+	int	i;
 
-static void	size(long x, size_t *len)
-{
-	*len = 0;
-	while (x)
-	{
-		x = x / 10;
-		(*len)++;
-	}
-}
-
-void		ft_putnbr_fd(int n, int fd)
-{
-	long	x;
-	size_t	i;
-	size_t	len;
-	char	stock[11];
-
-	if (n == 0)
-		return (zero(fd));
-	x = n;
-	if (x < 0)
-		x = -x;
-	size(x, &len);
+	if (!x)
+		return (1);
 	i = 0;
 	while (x)
 	{
-		stock[i++] = x % 10 + '0';
-		x = x / 10;
+		i++;
+		x = x / 16;
 	}
-	if (n < 0)
-	{
-		stock[i] = '-';
-		len++;
-	}
-	while (len)
-		write(fd, &stock[--len], 1);
+	return (i);
 }

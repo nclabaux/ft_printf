@@ -6,11 +6,11 @@
 /*   By: nclabaux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:43:07 by nclabaux          #+#    #+#             */
-/*   Updated: 2020/01/13 13:51:08 by nclabaux         ###   ########.fr       */
+/*   Updated: 2020/01/30 22:34:30 by nclabaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_convert_base.h"
+#include "libft.h"
 
 long	is_negative(long x, int *negat)
 {
@@ -29,7 +29,7 @@ char	*ft_nbr_base(unsigned long nbr, char *base)
 	int	i;
 	int	*tab;
 
-	if (is_ok(base, &size))
+	if (check_base(base, &size))
 	{
 		if (!(tab = malloc(sizeof(char) * 34)))
 			return (NULL);
